@@ -78,7 +78,7 @@ g:jsdoc_input_description			*g:jsdoc_input_description*
 
 		Default value is '0'
 
-g:jsdoc_input_description			*g:jsdoc_input_description*
+g:jsdoc_additional_descriptions		*g:jsdoc_additional_descriptions*
 		If g:jsdoc_input_description is '1' @function and @name
 		append to JsDoc.
 
