@@ -13,7 +13,7 @@ command! -nargs=0 -buffer -complete=customlist,jsdoc#insert JsDoc call jsdoc#ins
 
 nnoremap <silent> <buffer> <Plug>(jsdoc) :call jsdoc#insert()<CR>
 if !hasmapto('<Plug>(jsdoc)')
-  nmap <silent> <unique> <C-l> <Plug>(jsdoc)
+  nmap <silent> <C-l> <Plug>(jsdoc)
 endif
 
 let &cpo = s:save_cpo
