@@ -16,6 +16,9 @@ endif
 if !exists('g:jsdoc_additional_descriptions')
   let g:jsdoc_additional_descriptions = 0
 endif
+if !exists('g:jsdoc_return')
+  let g:jsdoc_return = 1
+endif
 
 function! jsdoc#insert()
   let l:jsDocregex = '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*function\s*(\s*\([^)]*\)\s*).*$'
@@ -42,6 +45,7 @@ function! jsdoc#insert()
   endif
   call add(l:lines, l:space. '/**')
   call add(l:lines, l:space . ' * ' . l:desc)
+  call add(l:lines, l:space . ' *')
   let l:funcName = ''
   if l:flag
     let l:funcName = substitute(l:line, l:regex, '\1', "g")
@@ -53,9 +57,17 @@ function! jsdoc#insert()
       call add(l:lines, l:space . ' * @function')
     endif
 
+    let l:argType = ''
     for l:arg in l:args
-      call add(l:lines, l:space . ' * @param ' . l:arg)
+        let l:argType = input('Argument "' . l:arg . '" type :')
+      call add(l:lines, l:space . ' * @param {' . l:argType . '} ' . l:arg)
     endfor
+  endif
+  if g:jsdoc_return == 1
+      let l:returnType = input('Return type (blank for no @return) :')
+      if l:returnType != ''
+        call add(l:lines, l:space . ' * @return {' . l:returnType . '}')
+      endif
   endif
   call add(l:lines, l:space . ' */')
 
@@ -68,7 +80,7 @@ function! jsdoc#insert()
 
   silent! execute 'normal! ' . l:pos . 'G$'
   if l:desc == '' && l:funcName != ''
-  silent! execute 'normal! a' . l:funcName
+      silent! execute 'normal! a' . l:funcName
   endif
 
   let &g:paste = paste
