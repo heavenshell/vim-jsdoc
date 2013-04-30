@@ -12,12 +12,17 @@ set cpo&vim
 if !exists('g:jsdoc_input_description')
   let g:jsdoc_input_description = 0
 endif
-" TODO Think about additional params...
+" Prompt user for function description
 if !exists('g:jsdoc_additional_descriptions')
   let g:jsdoc_additional_descriptions = 0
 endif
+" Prompt user for return type
 if !exists('g:jsdoc_return')
   let g:jsdoc_return = 1
+endif
+" Prompt user for return description
+if !exists('g:jsdoc_return_description')
+  let g:jsdoc_return_description = 1
 endif
 
 function! jsdoc#insert()
@@ -57,17 +62,25 @@ function! jsdoc#insert()
       call add(l:lines, l:space . ' * @function')
     endif
 
-    let l:argType = ''
     for l:arg in l:args
         let l:argType = input('Argument "' . l:arg . '" type :')
-      call add(l:lines, l:space . ' * @param {' . l:argType . '} ' . l:arg)
+        let l:argDescription = input('Argument "' . l:arg . '" description :')
+        " Prepend space to start of description only if it was provided
+        if l:argDescription != ''
+          let l:argDescription = ' ' . l:argDescription
+        endif
+      call add(l:lines, l:space . ' * @param {' . l:argType . '} ' . l:arg . l:argDescription)
     endfor
   endif
   if g:jsdoc_return == 1
-      let l:returnType = input('Return type (blank for no @return) :')
-      if l:returnType != ''
-        call add(l:lines, l:space . ' * @return {' . l:returnType . '}')
+    let l:returnType = input('Return type (blank for no @return) :')
+    let l:returnDescription = ''
+    if l:returnType != ''
+      if g:jsdoc_return_description == 1
+        let l:returnDescription = ' '. input('Return description :')
       endif
+      call add(l:lines, l:space . ' * @return {' . l:returnType . '}' . l:returnDescription)
+    endif
   endif
   call add(l:lines, l:space . ' */')
 
