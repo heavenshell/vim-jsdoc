@@ -12,9 +12,17 @@ set cpo&vim
 if !exists('g:jsdoc_input_description')
   let g:jsdoc_input_description = 0
 endif
-" TODO Think about additional params...
+" Prompt user for function description
 if !exists('g:jsdoc_additional_descriptions')
   let g:jsdoc_additional_descriptions = 0
+endif
+" Prompt user for return type
+if !exists('g:jsdoc_return')
+  let g:jsdoc_return = 1
+endif
+" Prompt user for return description
+if !exists('g:jsdoc_return_description')
+  let g:jsdoc_return_description = 1
 endif
 
 function! jsdoc#insert()
@@ -42,6 +50,7 @@ function! jsdoc#insert()
   endif
   call add(l:lines, l:space. '/**')
   call add(l:lines, l:space . ' * ' . l:desc)
+  call add(l:lines, l:space . ' *')
   let l:funcName = ''
   if l:flag
     let l:funcName = substitute(l:line, l:regex, '\1', "g")
@@ -54,8 +63,27 @@ function! jsdoc#insert()
     endif
 
     for l:arg in l:args
-      call add(l:lines, l:space . ' * @param ' . l:arg)
+        let l:argType = input('Argument "' . l:arg . '" type :')
+        let l:argDescription = input('Argument "' . l:arg . '" description :')
+        " Prepend space to start of description only if it was provided
+        if l:argDescription != ''
+          let l:argDescription = ' ' . l:argDescription
+        endif
+      call add(l:lines, l:space . ' * @param {' . l:argType . '} ' . l:arg . l:argDescription)
     endfor
+  endif
+  if g:jsdoc_return == 1
+    let l:returnType = input('Return type (blank for no @return) :')
+    let l:returnDescription = ''
+    if l:returnType != ''
+      if g:jsdoc_return_description == 1
+        let l:returnDescription = input('Return description :')
+      endif
+      if l:returnDescription != ''
+        let l:returnDescription = ' ' . l:returnDescription
+      endif
+      call add(l:lines, l:space . ' * @return {' . l:returnType . '}' . l:returnDescription)
+    endif
   endif
   call add(l:lines, l:space . ' */')
 
@@ -68,7 +96,7 @@ function! jsdoc#insert()
 
   silent! execute 'normal! ' . l:pos . 'G$'
   if l:desc == '' && l:funcName != ''
-  silent! execute 'normal! a' . l:funcName
+      silent! execute 'normal! a' . l:funcName
   endif
 
   let &g:paste = paste
