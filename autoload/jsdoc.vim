@@ -77,7 +77,10 @@ function! jsdoc#insert()
     let l:returnDescription = ''
     if l:returnType != ''
       if g:jsdoc_return_description == 1
-        let l:returnDescription = ' '. input('Return description :')
+        let l:returnDescription = input('Return description :')
+      endif
+      if l:returnDescription != ''
+        let l:returnDescription = ' ' . l:returnDescription
       endif
       call add(l:lines, l:space . ' * @return {' . l:returnType . '}' . l:returnDescription)
     endif
