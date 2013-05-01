@@ -13,6 +13,8 @@ Depending on your confuguration, jsdoc.vim will prompt for description, `@return
   3. Insert JsDoc above the `function` keyword line.
 
 ## Configuration
+**g:jsdoc_allow_input_prompt** *default: 0*
+Allow prompt for intaractive input.
 
 **g:jsdoc_input_description** *default: 1*
 Prompt for a function description
