@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JsDoc to your JavaScript code.
 
-Version: 0.0.2
+Version: 0.0.3
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -84,8 +84,38 @@ g:jsdoc_additional_descriptions		*g:jsdoc_additional_descriptions*
 
 		Default value is '0'
 
+g:jsdoc_input_description		*g:jsdoc_input_description*
+		If g:jsdoc_input_description is '1' Prompt for a function
+		description.
+
+		Default value is '1'
+
+g:jsdoc_additional_descriptions		*g:jsdoc_additional_descriptions*
+		Prompt for a value for `@name`, add it to the JSDoc block
+		comment along with the `@function` tag.
+
+		Default value is '0'
+
+g:jsdoc_return				*g:jsdoc_return*
+		Add the `@return` tag.
+		Default value is '1'
+
+g:jsdoc_return_type			*g:jsdoc_return_type*
+		APrompt for and add a type for the aforementioned `@return` tag.
+
+		Default value is '1'
+
+g:jsdoc_return_description		*g:jsdoc_return_description*
+		DPrompt for and add a description for the `@return` tag.
+
+		Default value is '1'
+
+
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+
+2013-04-30
+- Add prompts for param types & return type (thx @faceleg)
 
 2013-03-13
 - Fix to work special character(number, $, _) included function(thx @mollifier)
