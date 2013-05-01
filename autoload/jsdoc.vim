@@ -1,7 +1,7 @@
 " File: jsdoc.vim
 " Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 " Modifyed: Shinya Ohyanagi <sohyanagi@gmail.com>
-" Version:  0.0.3
+" Version:  0.0.4
 " WebPage:  http://github.com/heavenshell/vim-jsdoc/
 " Description: Generate JsDoc to your JavaScript file.
 " License: BSD, see LICENSE for more details.
@@ -23,6 +23,10 @@ endif
 " Prompt user for return description
 if !exists('g:jsdoc_return_description')
   let g:jsdoc_return_description = 1
+endif
+" Allow prompt to input
+if !exists('g:jsdoc_allow_input_prompt')
+  let g:jsdoc_allow_input_prompt = 0
 endif
 
 function! jsdoc#insert()
@@ -63,26 +67,34 @@ function! jsdoc#insert()
     endif
 
     for l:arg in l:args
+      if g:jsdoc_allow_input_prompt == 1
         let l:argType = input('Argument "' . l:arg . '" type :')
         let l:argDescription = input('Argument "' . l:arg . '" description :')
         " Prepend space to start of description only if it was provided
         if l:argDescription != ''
           let l:argDescription = ' ' . l:argDescription
         endif
-      call add(l:lines, l:space . ' * @param {' . l:argType . '} ' . l:arg . l:argDescription)
+        call add(l:lines, l:space . ' * @param {' . l:argType . '} ' . l:arg . l:argDescription)
+      else
+        call add(l:lines, l:space . ' * @param ' . l:arg)
+      endif
     endfor
   endif
   if g:jsdoc_return == 1
-    let l:returnType = input('Return type (blank for no @return) :')
-    let l:returnDescription = ''
-    if l:returnType != ''
-      if g:jsdoc_return_description == 1
-        let l:returnDescription = input('Return description :')
+    if g:jsdoc_allow_input_prompt == 1
+      let l:returnType = input('Return type (blank for no @return) :')
+      let l:returnDescription = ''
+      if l:returnType != ''
+        if g:jsdoc_return_description == 1
+          let l:returnDescription = input('Return description :')
+        endif
+        if l:returnDescription != ''
+          let l:returnDescription = ' ' . l:returnDescription
+        endif
+        call add(l:lines, l:space . ' * @return {' . l:returnType . '}' . l:returnDescription)
+      else
+        call add(l:lines, l:space . ' * @return ')
       endif
-      if l:returnDescription != ''
-        let l:returnDescription = ' ' . l:returnDescription
-      endif
-      call add(l:lines, l:space . ' * @return {' . l:returnType . '}' . l:returnDescription)
     endif
   endif
   call add(l:lines, l:space . ' */')

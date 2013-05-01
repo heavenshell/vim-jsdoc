@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JsDoc to your JavaScript code.
 
-Version: 0.0.3
+Version: 0.0.4
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -90,29 +90,37 @@ g:jsdoc_input_description		*g:jsdoc_input_description*
 
 		Default value is '1'
 
-g:jsdoc_additional_descriptions		*g:jsdoc_additional_descriptions*
-		Prompt for a value for `@name`, add it to the JSDoc block
-		comment along with the `@function` tag.
+g:jsdoc_allow_input_prompt		*g:jsdoc_allow_input_prompt*
+		Allow prompt for a value for `@param`, `@return`
+		add it to the JsDoc block.
+		If prompt not allowed, only `@param`, `@return` add to the
+		JsDoc.
+		This variables affects to g:jsdoc_return_type and
+		g:jsdoc_return_description.
 
 		Default value is '0'
 
 g:jsdoc_return				*g:jsdoc_return*
 		Add the `@return` tag.
+
 		Default value is '1'
 
 g:jsdoc_return_type			*g:jsdoc_return_type*
-		APrompt for and add a type for the aforementioned `@return` tag.
+		Prompt for and add a type for the aforementioned `@return` tag.
 
 		Default value is '1'
 
 g:jsdoc_return_description		*g:jsdoc_return_description*
-		DPrompt for and add a description for the `@return` tag.
+		Prompt for and add a description for the `@return` tag.
 
 		Default value is '1'
 
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+
+2013-05-01
+- Add g:jsdoc_input_params to allow prompt @param, @return.
 
 2013-04-30
 - Add prompts for param types & return type (thx @faceleg)
