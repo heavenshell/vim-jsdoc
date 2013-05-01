@@ -96,7 +96,7 @@ function! jsdoc#insert()
 
   silent! execute 'normal! ' . l:pos . 'G$'
   if l:desc == '' && l:funcName != ''
-      silent! execute 'normal! a' . l:funcName
+    silent! execute 'normal! a' . l:funcName
   endif
 
   let &g:paste = paste
