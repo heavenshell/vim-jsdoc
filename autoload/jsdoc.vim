@@ -93,8 +93,10 @@ function! jsdoc#insert()
         endif
         call add(l:lines, l:space . ' * @return {' . l:returnType . '}' . l:returnDescription)
       else
-        call add(l:lines, l:space . ' * @return ')
+        call add(l:lines, l:space . ' * @return')
       endif
+    else
+      call add(l:lines, l:space . ' * @return')
     endif
   endif
   call add(l:lines, l:space . ' */')
