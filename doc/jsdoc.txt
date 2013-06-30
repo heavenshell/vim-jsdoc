@@ -72,12 +72,6 @@ Define function to your code.
 ==============================================================================
 VARIABLES					*jsdoc-vim-variables*
 
-g:jsdoc_input_description			*g:jsdoc_input_description*
-		If g:jsdoc_input_description is '1' you can input description
-		interactive.
-
-		Default value is '0'
-
 g:jsdoc_additional_descriptions		*g:jsdoc_additional_descriptions*
 		If g:jsdoc_input_description is '1' @function and @name
 		append to JsDoc.
