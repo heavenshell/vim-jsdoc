@@ -11,8 +11,11 @@ set cpo&vim
 
 command! -nargs=0 -buffer -complete=customlist,jsdoc#insert JsDoc call jsdoc#insert()
 
+if !exists('g:jsdoc_default_mapping')
+  let g:jsdoc_default_mapping = 1
+endif
 nnoremap <silent> <buffer> <Plug>(jsdoc) :call jsdoc#insert()<CR>
-if !hasmapto('<Plug>(jsdoc)')
+if !hasmapto('<Plug>(jsdoc)') && g:jsdoc_default_mapping
   nmap <silent> <C-l> <Plug>(jsdoc)
 endif
 

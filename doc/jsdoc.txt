@@ -109,9 +109,17 @@ g:jsdoc_return_description		*g:jsdoc_return_description*
 
 		Default value is '1'
 
+g:jsdoc_default_mapping			g:jsdoc_default_mapping
+		Automatically map to <C-l>
+
+		Default value is '1'
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2013-07-07
+- Add g:jsdoc_default_mapping option, making it possible to prevent automatic
+  <C-l> mapping.
+
 2013-05-30
 - Fix @return tag is only added g:jsdoc_allow_input_prompt enabled
   (thx @thomasbelin4)
