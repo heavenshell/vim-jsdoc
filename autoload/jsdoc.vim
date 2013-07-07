@@ -9,6 +9,9 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
+if !exists('g:jsdoc_default_mapping')
+  let g:jsdoc_default_mapping = 1
+endif
 if !exists('g:jsdoc_input_description')
   let g:jsdoc_input_description = 0
 endif
