@@ -50,7 +50,7 @@ function! jsdoc#insert()
   let l:lines = []
   let l:desc = ''
   if g:jsdoc_input_description == 1
-    let l:desc = input('Description :')
+    let l:desc = input('Description: ')
   endif
   call add(l:lines, l:space. '/**')
   call add(l:lines, l:space . ' * ' . l:desc)
@@ -68,8 +68,8 @@ function! jsdoc#insert()
 
     for l:arg in l:args
       if g:jsdoc_allow_input_prompt == 1
-        let l:argType = input('Argument "' . l:arg . '" type :')
-        let l:argDescription = input('Argument "' . l:arg . '" description :')
+        let l:argType = input('Argument "' . l:arg . '" type: ')
+        let l:argDescription = input('Argument "' . l:arg . '" description: ')
         " Prepend space to start of description only if it was provided
         if l:argDescription != ''
           let l:argDescription = ' ' . l:argDescription
@@ -82,11 +82,11 @@ function! jsdoc#insert()
   endif
   if g:jsdoc_return == 1
     if g:jsdoc_allow_input_prompt == 1
-      let l:returnType = input('Return type (blank for no @return) :')
+      let l:returnType = input('Return type (blank for no @return): ')
       let l:returnDescription = ''
       if l:returnType != ''
         if g:jsdoc_return_description == 1
-          let l:returnDescription = input('Return description :')
+          let l:returnDescription = input('Return description: ')
         endif
         if l:returnDescription != ''
           let l:returnDescription = ' ' . l:returnDescription
