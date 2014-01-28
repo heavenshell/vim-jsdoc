@@ -32,4 +32,4 @@ Prompt for and add a type for the aforementioned `@return` tag.
 Prompt for and add a description for the `@return` tag.
 
 **g:jsdoc_default_mapping** *default: 1*
-Turn off default mapping of <C-l> :JsDoc<cr>
+Set value to 0 to turn off default mapping of <C-l> :JsDoc<cr>
