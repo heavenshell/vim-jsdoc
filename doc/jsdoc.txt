@@ -116,6 +116,10 @@ g:jsdoc_default_mapping			g:jsdoc_default_mapping
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2014-06-05
+- Add {undefined} as a default type of @return.
+  (thx @verkholantsev)
+
 2013-07-07
 - Add g:jsdoc_default_mapping option, making it possible to prevent automatic
   <C-l> mapping.
