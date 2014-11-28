@@ -28,14 +28,38 @@ endif
 if !exists('g:jsdoc_allow_input_prompt')
   let g:jsdoc_allow_input_prompt = 0
 endif
+" Access tag (default 0)
+" http://usejsdoc.org/tags-access.html
+if !exists('g:jsdoc_access_descriptions')
+  let g:jsdoc_access_descriptions = 0
+endif
+" Use underscore starting functions as private convention (default 0)
+" http://usejsdoc.org/tags-access.html
+" used only if g:jsdoc_access_descriptions > 0
+if !exists('g:jsdoc_underscore_private')
+  let g:jsdoc_underscore_private = 0
+endif
 
 function! jsdoc#insert()
   let l:jsDocregex = '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*function\s*(\s*\([^)]*\)\s*).*$'
   let l:jsDocregex2 = '^.\{-}\s*function\s\+\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$'
 
   let l:line = getline('.')
-  let l:indent = indent('.')
-  let l:space = repeat(' ', l:indent)
+  let l:indentCharSpace = ' '
+  let l:indentCharTab = '	'
+  let l:autoexpandtab = &l:expandtab
+
+  if l:autoexpandtab == 'noexpandtab'
+    " tabs
+    let l:indent = indent('.') / &l:tabstop
+    let l:indentChar = l:indentCharTab
+  elseif l:autoexpandtab == 'expandtab'
+    " spaces
+    let l:indent = indent('.')
+    let l:indentChar = l:indentCharSpace
+  endif
+
+  let l:space = repeat(l:indentChar, l:indent)
 
   if l:line =~ l:jsDocregex
     let l:flag = 1
@@ -64,6 +88,29 @@ function! jsdoc#insert()
     if g:jsdoc_additional_descriptions == 1
       call add(l:lines, l:space . ' * @name ' . l:funcName)
       call add(l:lines, l:space . ' * @function')
+    endif
+
+    if g:jsdoc_access_descriptions > 0
+      let l:access = 'public'
+
+      if g:jsdoc_underscore_private == 1
+        let l:funcNameFirstChar = l:funcName[0]
+
+        if l:funcNameFirstChar == '_'
+          let l:access = 'private'
+        endif
+      endif
+
+     if g:jsdoc_access_descriptions == 2
+       " use: http://usejsdoc.org/tags-access.html
+       let l:access_tag = ' * @access '
+     else
+       " use other form, e.g.: http://usejsdoc.org/tags-public.html
+       let l:access_tag = ' * @'
+     endif
+
+      call add(l:lines, l:space . l:access_tag . l:access)
+
     endif
 
     for l:arg in l:args
