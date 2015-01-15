@@ -49,11 +49,11 @@ function! jsdoc#insert()
   let l:indentCharTab = '	'
   let l:autoexpandtab = &l:expandtab
 
-  if l:autoexpandtab == 'noexpandtab'
+  if l:autoexpandtab == 0 " noexpandtab
     " tabs
     let l:indent = indent('.') / &l:tabstop
     let l:indentChar = l:indentCharTab
-  elseif l:autoexpandtab == 'expandtab'
+  elseif l:autoexpandtab == 1 " expandtab
     " spaces
     let l:indent = indent('.')
     let l:indentChar = l:indentCharSpace
