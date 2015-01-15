@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JsDoc to your JavaScript code.
 
-Version: 0.0.5
+Version: 0.0.6
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -109,13 +109,39 @@ g:jsdoc_return_description		*g:jsdoc_return_description*
 
 		Default value is '1'
 
-g:jsdoc_default_mapping			g:jsdoc_default_mapping
+g:jsdoc_default_mapping			*g:jsdoc_default_mapping*
 		Automatically map to <C-l>
 
 		Default value is '1'
 
+g:jsdoc_default_mapping			*g:jsdoc_default_mapping*
+		Automatically map to <C-l>
+
+		Default value is '1'
+
+g:jsdoc_access_descriptions		*g:jsdoc_access_descriptions*
+
+		Set value to 1 to turn on access tags like
+		@access <private|public>`
+		Set value to 2 to turn on access tags like `@<private|public>` 
+
+		Default value is '0'
+
+g:jsdoc_underscore_private		*g:jsdoc_underscore_private*
+
+		Set value to 1 to turn on detecting underscore starting
+		functions as private convention
+
+		Default value is '0'
+
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2015-01-15
+- Add g:jsdoc_access_descriptions to set access tags.
+- Add g:jsdoc_underscore_private to set underscore starting function as
+  private.
+  (thx @ryanoasis)
+
 2014-06-05
 - Add {undefined} as a default type of @return.
   (thx @verkholantsev)
