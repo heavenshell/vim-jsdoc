@@ -114,16 +114,11 @@ g:jsdoc_default_mapping			*g:jsdoc_default_mapping*
 
 		Default value is '1'
 
-g:jsdoc_default_mapping			*g:jsdoc_default_mapping*
-		Automatically map to <C-l>
-
-		Default value is '1'
-
 g:jsdoc_access_descriptions		*g:jsdoc_access_descriptions*
 
 		Set value to 1 to turn on access tags like
 		@access <private|public>`
-		Set value to 2 to turn on access tags like `@<private|public>` 
+		Set value to 2 to turn on access tags like `@<private|public>`
 
 		Default value is '0'
 
@@ -134,8 +129,18 @@ g:jsdoc_underscore_private		*g:jsdoc_underscore_private*
 
 		Default value is '0'
 
+g:jsdoc_allow_shorthand			*g:jsdoc_allow_shorthand*
+
+		Set value to 1 to allow ECMAScript6 shorthand syntax.
+
+		Default value is '0'
+
+
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2015-01-16
+- Add g:jsdoc_allow_shorthand to allow ECMAScript6 shorthand syntax.
+
 2015-01-15
 - Add g:jsdoc_access_descriptions to set access tags.
 - Add g:jsdoc_underscore_private to set underscore starting function as
