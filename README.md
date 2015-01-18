@@ -40,3 +40,6 @@ Set value to 2 to turn on access tags like `@<private|public>`
 
 **g:jsdoc_underscore_private** *default: 0*
 Set value to 1 to turn on detecting underscore starting functions as private convention
+
+**g:jsdoc_allow_shorthand** *default: 0*
+Set value to 1 to allow ECMAScript6 shorthand syntax.
