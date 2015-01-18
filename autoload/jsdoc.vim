@@ -39,10 +39,23 @@ endif
 if !exists('g:jsdoc_underscore_private')
   let g:jsdoc_underscore_private = 0
 endif
+" Enable to use ECMAScript6 shorthand method syntax.
+" /**
+"  * foo
+"  *
+"  * @param foo
+"  */
+" foo(data) {
+" }
+if !exists('g:jsdoc_allow_shorthand')
+  let g:jsdoc_allow_shorthand = 0
+endif
 
 function! jsdoc#insert()
   let l:jsDocregex = '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*function\s*(\s*\([^)]*\)\s*).*$'
   let l:jsDocregex2 = '^.\{-}\s*function\s\+\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$'
+  " ECMAScript6 shorthand syntax.
+  let l:jsDocregex3 = '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$'
 
   let l:line = getline('.')
   let l:indentCharSpace = ' '
@@ -67,6 +80,9 @@ function! jsdoc#insert()
   elseif l:line =~ l:jsDocregex2
     let l:flag = 1
     let l:regex = l:jsDocregex2
+  elseif g:jsdoc_allow_shorthand == 1 && l:line =~ l:jsDocregex3
+    let l:flag = 1
+    let l:regex = l:jsDocregex3
   else
     let l:flag = 0
   endif
