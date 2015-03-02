@@ -35,8 +35,8 @@ Prompt for and add a description for the `@return` tag.
 Set value to 0 to turn off default mapping of <C-l> :JsDoc<cr>
 
 **g:jsdoc_access_descriptions** *default: 0*
-Set value to 1 to turn on access tags like `@access <private|public>`
-Set value to 2 to turn on access tags like `@<private|public>`
+Set value to 1 to turn on access tags like `@<private|public>`
+Set value to 2 to turn on access tags like `@access <private|public>`
 
 **g:jsdoc_underscore_private** *default: 0*
 Set value to 1 to turn on detecting underscore starting functions as private convention
