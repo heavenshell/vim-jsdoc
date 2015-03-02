@@ -138,6 +138,10 @@ g:jsdoc_allow_shorthand			*g:jsdoc_allow_shorthand*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2015-03-02
+- Fix g:jsdoc_access_descriptions behavior reversed.
+  (thx @hbetts)
+
 2015-01-16
 - Add g:jsdoc_allow_shorthand to allow ECMAScript6 shorthand syntax.
 
