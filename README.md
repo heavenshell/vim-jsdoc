@@ -14,7 +14,7 @@ Depending on your confuguration, jsdoc.vim will prompt for description, `@return
 
 ## Configuration
 **g:jsdoc_allow_input_prompt** *default: 0*
-Allow prompt for intaractive input.
+Allow prompt for interactive input.
 
 **g:jsdoc_input_description** *default: 1*
 Prompt for a function description
