@@ -3,9 +3,14 @@ jsdoc.vim
 
 jsdoc.vim generates JSDoc block comments based on a function signature.
 
+![image](images/vim-jsdoc-screencast-preview.gif)
+
 This plugin based on https://gist.github.com/3903772#file-jsdoc-vim written by [NAKAMURA, Hisashi](https://gist.github.com/sunvisor)
 
 Depending on your confuguration, jsdoc.vim will prompt for description, `@return` type and description. It will also prompt you for types and descriptions for each function `@param`.
+
+Data type tab completion supported for parameter and return types
+* currently: `boolean`, `null`, `undefined`, `number`, `string`, `symbol`, `object`
 
 ## Usage
   1. Move cursor on `function` keyword line.
