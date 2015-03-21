@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JsDoc to your JavaScript code.
 
-Version: 0.0.6
+Version: 0.0.7
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -138,6 +138,12 @@ g:jsdoc_allow_shorthand			*g:jsdoc_allow_shorthand*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2015-03-21
+- Fix minor spelling.
+  added tab auto completion for js types.
+  added screencast to show basic functionality and tab completion.
+  (thx @ryanoasis)
+
 2015-03-02
 - Fix g:jsdoc_access_descriptions behavior reversed.
   (thx @hbetts)
