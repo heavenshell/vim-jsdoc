@@ -51,6 +51,12 @@ if !exists('g:jsdoc_allow_shorthand')
   let g:jsdoc_allow_shorthand = 0
 endif
 
+" Return data types for argument type auto completion :)
+function! jsdoc#listDataTypes(A,L,P)
+  let l:types = ['boolean', 'null', 'undefined', 'number', 'string', 'symbol', 'object']
+  return join(l:types, "\n")
+endfunction
+
 function! jsdoc#insert()
   let l:jsDocregex = '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*function\s*(\s*\([^)]*\)\s*).*$'
   let l:jsDocregex2 = '^.\{-}\s*function\s\+\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$'
@@ -131,7 +137,7 @@ function! jsdoc#insert()
 
     for l:arg in l:args
       if g:jsdoc_allow_input_prompt == 1
-        let l:argType = input('Argument "' . l:arg . '" type: ')
+        let l:argType = input('Argument "' . l:arg . '" type: ', '', 'custom,jsdoc#listDataTypes')
         let l:argDescription = input('Argument "' . l:arg . '" description: ')
         " Prepend space to start of description only if it was provided
         if l:argDescription != ''
@@ -145,7 +151,7 @@ function! jsdoc#insert()
   endif
   if g:jsdoc_return == 1
     if g:jsdoc_allow_input_prompt == 1
-      let l:returnType = input('Return type (blank for no @return): ')
+      let l:returnType = input('Return type (blank for no @return): ', '', 'custom,jsdoc#listDataTypes')
       let l:returnDescription = ''
       if l:returnType != ''
         if g:jsdoc_return_description == 1
