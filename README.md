@@ -3,7 +3,7 @@ jsdoc.vim
 
 jsdoc.vim generates JSDoc block comments based on a function signature.
 
-![image](images/vim-jsdoc-screencast-preview.gif)
+![image](wiki/images/vim-jsdoc-screencast-preview.gif)
 
 This plugin based on https://gist.github.com/3903772#file-jsdoc-vim written by [NAKAMURA, Hisashi](https://gist.github.com/sunvisor)
 
