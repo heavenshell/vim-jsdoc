@@ -161,8 +161,6 @@ function! jsdoc#insert()
           let l:returnDescription = ' ' . l:returnDescription
         endif
         call add(l:lines, l:space . ' * @return {' . l:returnType . '}' . l:returnDescription)
-      else
-        call add(l:lines, l:space . ' * @return {undefined}')
       endif
     else
       call add(l:lines, l:space . ' * @return {undefined}')
