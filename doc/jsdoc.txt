@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JsDoc to your JavaScript code.
 
-Version: 0.0.7
+Version: 0.0.8
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -138,6 +138,10 @@ g:jsdoc_allow_shorthand			*g:jsdoc_allow_shorthand*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2015-04-05
+- Omit return tag if the input for return type is blank.
+  (thx @glifchits)
+
 2015-03-21
 - Fix minor spelling.
   added tab auto completion for js types.
