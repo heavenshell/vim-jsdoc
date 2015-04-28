@@ -138,6 +138,10 @@ g:jsdoc_allow_shorthand			*g:jsdoc_allow_shorthand*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2015-04-28
+- Allowing for generator function detection.
+  (thx @andjosh)
+
 2015-04-05
 - Omit return tag if the input for return type is blank.
   (thx @glifchits)
