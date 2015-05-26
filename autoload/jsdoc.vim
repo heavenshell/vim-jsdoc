@@ -50,6 +50,10 @@ endif
 if !exists('g:jsdoc_allow_shorthand')
   let g:jsdoc_allow_shorthand = 0
 endif
+" Use seperator between @param name and description.
+if !exists('g:jsdoc_param_description_seperator')
+	let g:jsdoc_param_description_seperator = " - "
+endif
 
 " Return data types for argument type auto completion :)
 function! jsdoc#listDataTypes(A,L,P)
@@ -139,9 +143,9 @@ function! jsdoc#insert()
       if g:jsdoc_allow_input_prompt == 1
         let l:argType = input('Argument "' . l:arg . '" type: ', '', 'custom,jsdoc#listDataTypes')
         let l:argDescription = input('Argument "' . l:arg . '" description: ')
-        " Prepend space to start of description only if it was provided
+        " Prepend seperator to start of description only if it was provided
         if l:argDescription != ''
-          let l:argDescription = ' ' . l:argDescription
+          let l:argDescription = g:jsdoc_param_description_seperator . l:argDescription
         endif
         call add(l:lines, l:space . ' * @param {' . l:argType . '} ' . l:arg . l:argDescription)
       else
