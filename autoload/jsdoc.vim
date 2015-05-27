@@ -52,7 +52,7 @@ if !exists('g:jsdoc_allow_shorthand')
 endif
 " Use seperator between @param name and description.
 if !exists('g:jsdoc_param_description_seperator')
-	let g:jsdoc_param_description_seperator = " - "
+	let g:jsdoc_param_description_seperator = " "
 endif
 
 " Return data types for argument type auto completion :)
