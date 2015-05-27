@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JsDoc to your JavaScript code.
 
-Version: 0.0.9
+Version: 0.1.0
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -144,6 +144,10 @@ g:jsdoc_param_description_seperator	*g:jsdoc_param_description_seperator*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2015-05-27
+- Add seperator between @param's name and description for better readability.
+  (thx @aars)
+
 2015-04-28
 - Allowing for generator function detection.
   (thx @andjosh)
