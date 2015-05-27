@@ -48,3 +48,6 @@ Set value to 1 to turn on detecting underscore starting functions as private con
 
 **g:jsdoc_allow_shorthand** *default: 0*
 Set value to 1 to allow ECMAScript6 shorthand syntax.
+
+**g:jsdoc_param_description_seperator** *default: ' '*
+Characters used to seperate @param name and description.
