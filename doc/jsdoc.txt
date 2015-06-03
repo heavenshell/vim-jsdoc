@@ -109,6 +109,11 @@ g:jsdoc_return_description		*g:jsdoc_return_description*
 
 		Default value is '1'
 
+g:jsdoc_return_plural			*g:jsdoc_return_plural
+		Use the `@returns` tag instead of `@return`.
+
+		Default value is '0'
+
 g:jsdoc_default_mapping			*g:jsdoc_default_mapping*
 		Automatically map to <C-l>
 
