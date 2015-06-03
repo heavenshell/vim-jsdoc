@@ -20,6 +20,10 @@ endif
 if !exists('g:jsdoc_return')
   let g:jsdoc_return = 1
 endif
+" Set @return tag plurality
+if !exists('g:jsdoc_return_plural')
+  let g:jsdoc_return_plural = 0
+endif
 " Prompt user for return description
 if !exists('g:jsdoc_return_description')
   let g:jsdoc_return_description = 1
@@ -154,8 +158,12 @@ function! jsdoc#insert()
     endfor
   endif
   if g:jsdoc_return == 1
+    let l:returnTag = '@return'
+    if g:jsdoc_return_plural == 1
+      let l:returnTag = l:returnTag . 's'
+    endif
     if g:jsdoc_allow_input_prompt == 1
-      let l:returnType = input('Return type (blank for no @return): ', '', 'custom,jsdoc#listDataTypes')
+      let l:returnType = input('Return type (blank for no ' . l:returnTag . '): ', '', 'custom,jsdoc#listDataTypes')
       let l:returnDescription = ''
       if l:returnType != ''
         if g:jsdoc_return_description == 1
@@ -164,10 +172,10 @@ function! jsdoc#insert()
         if l:returnDescription != ''
           let l:returnDescription = ' ' . l:returnDescription
         endif
-        call add(l:lines, l:space . ' * @return {' . l:returnType . '}' . l:returnDescription)
+        call add(l:lines, l:space . ' * ' . l:returnTag . ' {' . l:returnType . '}' . l:returnDescription)
       endif
     else
-      call add(l:lines, l:space . ' * @return {undefined}')
+      call add(l:lines, l:space . ' * ' . l:returnTag . ' {undefined}')
     endif
   endif
   call add(l:lines, l:space . ' */')
