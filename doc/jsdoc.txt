@@ -142,8 +142,42 @@ g:jsdoc_param_description_seperator	*g:jsdoc_param_description_seperator*
 
 		Default value is ' '
 
+g:jsdoc_custom_args_hook		*g:jsdoc_custom_args_hook*
+
+		Allow to hook default arg type and description.
+
+		Default value is '{}'
+>
+		If you set following setting to .vimrc or _vimrc.
+
+		let g:jsdoc_custom_args_hook = {
+		\ 'callback\|cb': {
+		\   'type': ' {Function} ',
+		\   'description': 'Callback function'
+		\ }
+		\}
+
+		The key of g:jsdoc_custom_args_hook is regex to hook
+		If function's signeture include `callback` or `cb`
+		and g:jsdoc_custom_args_hook's key matched JsDoc.vim would
+		genrate like following.
+
+		/**
+		 * foo
+		 *
+		 * @param bar
+		 * @param callback {Function} Callback function
+		 * @param cb {Function} Callback function
+		 * @return {undefined}
+		 */
+		function foo(bar, callback, cb) {
+		}
+
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2015-06-10
+- Add g:jsdoc_custom_args_hook to override default type and description.
+
 2015-05-27
 - Add seperator between @param's name and description for better readability.
   (thx @aars)
