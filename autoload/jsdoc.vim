@@ -55,6 +55,7 @@ if !exists('g:jsdoc_param_description_seperator')
 	let g:jsdoc_param_description_seperator = " "
 endif
 
+" Insert defined type and description if arg is matched to defined regex.
 if !exists('g:jsdoc_custom_args_hook')
   let g:jsdoc_custom_args_hook = {}
 endif
@@ -71,7 +72,7 @@ function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
     call add(a:lines, a:space . ' * @param ' . a:arg)
   else
     let l:matchedArg = matchstr(a:hook, a:arg)
-    if l:matchedArg == ""
+    if l:matchedArg == ''
       call add(a:lines, a:space . ' * @param ' . a:arg)
     else
       let l:type = ''
