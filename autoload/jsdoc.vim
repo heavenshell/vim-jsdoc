@@ -55,14 +55,41 @@ if !exists('g:jsdoc_param_description_seperator')
 	let g:jsdoc_param_description_seperator = " "
 endif
 
-
 if !exists('g:jsdoc_custom_args_hook')
   let g:jsdoc_custom_args_hook = {}
 endif
+
 " Return data types for argument type auto completion :)
 function! jsdoc#listDataTypes(A,L,P)
   let l:types = ['boolean', 'null', 'undefined', 'number', 'string', 'symbol', 'object']
   return join(l:types, "\n")
+endfunction
+
+function! s:hookArgs(lines, space, arg, hook, argType)
+  " Hook function signature's args for insert as default value.
+  if g:jsdoc_custom_args_hook == {}
+    call add(a:lines, a:space . ' * @param ' . a:arg)
+  else
+    let l:matchedArg = matchstr(a:hook, a:arg)
+    if l:matchedArg == ""
+      call add(a:lines, a:space . ' * @param ' . a:arg)
+    else
+      let l:type = ''
+      let l:customArg = g:jsdoc_custom_args_hook[l:matchedArg]
+      if a:argType == ''
+        if has_key(l:customArg, 'type')
+          let l:type = ' ' . l:customArg['type']
+        endif
+      else
+        let l:type = ' {' . a:argType . '}'
+      endif
+      let l:description = ''
+      if has_key(l:customArg, 'description')
+        let l:description = g:jsdoc_param_description_seperator . l:customArg['description']
+      endif
+    call add(a:lines, a:space . ' * @param ' . a:arg . l:type . l:description)
+  endif
+  return a:lines
 endfunction
 
 function! jsdoc#insert()
@@ -148,35 +175,19 @@ function! jsdoc#insert()
       if g:jsdoc_allow_input_prompt == 1
         let l:argType = input('Argument "' . l:arg . '" type: ', '', 'custom,jsdoc#listDataTypes')
         let l:argDescription = input('Argument "' . l:arg . '" description: ')
-        " Prepend seperator to start of description only if it was provided
-        if l:argDescription != ''
-          let l:argDescription = g:jsdoc_param_description_seperator . l:argDescription
-        endif
-        call add(l:lines, l:space . ' * @param {' . l:argType . '} ' . l:arg . l:argDescription)
-      else
-        " Hook function signature's args for insert as default value.
+
         if g:jsdoc_custom_args_hook == {}
-          call add(l:lines, l:space . ' * @param ' . l:arg)
-        else
-          let l:matchedArg = matchstr(l:hook, l:arg)
-          if l:matchedArg == ""
-            call add(l:lines, l:space . ' * @param ' . l:arg)
-          else
-            let l:type = ''
-            let l:customArg = g:jsdoc_custom_args_hook[l:matchedArg]
-            if has_key(l:customArg, 'type')
-              let l:type =  l:space . l:customArg['type']
-            endif
-            let l:description = ''
-            if has_key(l:customArg, 'description')
-              if len(l:space) == 0 && l:type == ''
-                let l:description = ' '
-              endif
-              let l:description .= l:space . g:jsdoc_param_description_seperator . l:customArg['description']
-            endif
-            call add(l:lines, l:space . ' * @param ' . l:arg . l:type . l:description)
+          " Prepend seperator to start of description only if it was provided
+          if l:argDescription != ''
+            let l:argDescription = g:jsdoc_param_description_seperator . l:argDescription
           endif
+          call add(l:lines, l:space . ' * @param {' . l:argType . '} ' . l:arg . l:argDescription)
+        else
+          let l:lines = s:hookArgs(l:lines, l:space, l:arg, l:hook, l:argType)
         endif
+      else
+        " Hook args.
+        let l:lines = s:hookArgs(l:lines, l:space, l:arg, l:hook, '')
       endif
     endfor
   endif
