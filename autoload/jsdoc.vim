@@ -65,7 +65,7 @@ function! jsdoc#listDataTypes(A,L,P)
   return join(l:types, "\n")
 endfunction
 
-function! s:hookArgs(lines, space, arg, hook, argType)
+function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
   " Hook function signature's args for insert as default value.
   if g:jsdoc_custom_args_hook == {}
     call add(a:lines, a:space . ' * @param ' . a:arg)
@@ -84,8 +84,12 @@ function! s:hookArgs(lines, space, arg, hook, argType)
         let l:type = ' {' . a:argType . '}'
       endif
       let l:description = ''
-      if has_key(l:customArg, 'description')
-        let l:description = g:jsdoc_param_description_seperator . l:customArg['description']
+      if a:argDescription == ''
+        if has_key(l:customArg, 'description')
+          let l:description = g:jsdoc_param_description_seperator . l:customArg['description']
+        endif
+      else
+        let l:description = g:jsdoc_param_description_seperator . a:argDescription
       endif
     call add(a:lines, a:space . ' * @param ' . a:arg . l:type . l:description)
   endif
@@ -183,11 +187,11 @@ function! jsdoc#insert()
           endif
           call add(l:lines, l:space . ' * @param {' . l:argType . '} ' . l:arg . l:argDescription)
         else
-          let l:lines = s:hookArgs(l:lines, l:space, l:arg, l:hook, l:argType)
+          let l:lines = s:hookArgs(l:lines, l:space, l:arg, l:hook, l:argType, l:argDescription)
         endif
       else
         " Hook args.
-        let l:lines = s:hookArgs(l:lines, l:space, l:arg, l:hook, '')
+        let l:lines = s:hookArgs(l:lines, l:space, l:arg, l:hook, '', '')
       endif
     endfor
   endif
