@@ -143,6 +143,7 @@ function! jsdoc#insert()
 
     endif
 
+    let hook = keys(g:jsdoc_custom_args_hook)
     for l:arg in l:args
       if g:jsdoc_allow_input_prompt == 1
         let l:argType = input('Argument "' . l:arg . '" type: ', '', 'custom,jsdoc#listDataTypes')
@@ -153,30 +154,28 @@ function! jsdoc#insert()
         endif
         call add(l:lines, l:space . ' * @param {' . l:argType . '} ' . l:arg . l:argDescription)
       else
+        " Hook function signature's args for insert as default value.
         if g:jsdoc_custom_args_hook == {}
           call add(l:lines, l:space . ' * @param ' . l:arg)
         else
-          " Hook if arg
-          let l:hooks = items(g:jsdoc_custom_args_hook)
-          for l:customArg in l:hooks
-            if matchstr(l:arg, l:customArg[0]) == ''
-              call add(l:lines, l:space . ' * @param ' . l:arg)
-            else
-              let l:type = ''
-              if has_key(l:customArg[1], 'type')
-                let l:type =  l:space . l:customArg[1]['type']
+          let l:matchedArg = matchstr(l:hook, l:arg)
+          if l:matchedArg == ""
+            call add(l:lines, l:space . ' * @param ' . l:arg)
+          else
+            let l:type = ''
+            let l:customArg = g:jsdoc_custom_args_hook[l:matchedArg]
+            if has_key(l:customArg, 'type')
+              let l:type =  l:space . l:customArg['type']
+            endif
+            let l:description = ''
+            if has_key(l:customArg, 'description')
+              if len(l:space) == 0 && l:type == ''
+                let l:description = ' '
               endif
-              let l:description = ''
-              if has_key(l:customArg[1], 'description')
-                if len(l:space) == 0 && l:type == ''
-                  let l:description = ' '
-                endif
-                let l:description .= l:space . g:jsdoc_param_description_seperator . l:customArg[1]['description']
-              endif
-              call add(l:lines, l:space . ' * @param ' . l:arg . l:type . l:description)
+              let l:description .= l:space . g:jsdoc_param_description_seperator . l:customArg['description']
+            endif
+            call add(l:lines, l:space . ' * @param ' . l:arg . l:type . l:description)
           endif
-
-          endfor
         endif
       endif
     endfor
