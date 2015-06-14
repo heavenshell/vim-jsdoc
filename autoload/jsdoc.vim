@@ -92,7 +92,8 @@ function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
       else
         let l:description = g:jsdoc_param_description_seperator . a:argDescription
       endif
-    call add(a:lines, a:space . ' * @param ' . a:arg . l:type . l:description)
+      call add(a:lines, a:space . ' * @param ' . a:arg . l:type . l:description)
+    endif
   endif
   return a:lines
 endfunction
