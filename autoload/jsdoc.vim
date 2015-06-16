@@ -73,7 +73,12 @@ function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
   else
     let l:matchedArg = matchstr(a:hook, a:arg)
     if l:matchedArg == ''
-      call add(a:lines, a:space . ' * @param ' . a:arg)
+      let l:type = ' {' . a:argType . '}'
+      let l:description = ''
+      if a:argDescription != ''
+        let l:description = g:jsdoc_param_description_seperator . a:argDescription
+      endif
+      call add(a:lines, a:space . ' * @param ' . a:arg . l:type . l:description)
     else
       let l:type = ''
       let l:customArg = g:jsdoc_custom_args_hook[l:matchedArg]
