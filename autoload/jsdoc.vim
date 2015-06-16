@@ -52,7 +52,7 @@ if !exists('g:jsdoc_allow_shorthand')
 endif
 " Use seperator between @param name and description.
 if !exists('g:jsdoc_param_description_seperator')
-	let g:jsdoc_param_description_seperator = " "
+    let g:jsdoc_param_description_seperator = " "
 endif
 
 " Insert defined type and description if arg is matched to defined regex.
@@ -73,12 +73,12 @@ function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
   else
     let l:matchedArg = matchstr(a:hook, a:arg)
     if l:matchedArg == ''
-      let l:type = ' {' . a:argType . '}'
+      let l:type = '{' . a:argType . '} '
       let l:description = ''
       if a:argDescription != ''
         let l:description = g:jsdoc_param_description_seperator . a:argDescription
       endif
-      call add(a:lines, a:space . ' * @param ' . a:arg . l:type . l:description)
+      call add(a:lines, a:space . ' * @param ' . l:type . a:arg . l:description)
     else
       let l:type = ''
       let l:customArg = g:jsdoc_custom_args_hook[l:matchedArg]
@@ -87,7 +87,7 @@ function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
           let l:type = ' ' . l:customArg['type']
         endif
       else
-        let l:type = ' {' . a:argType . '}'
+        let l:type = '{' . a:argType . '} '
       endif
       let l:description = ''
       if a:argDescription == ''
@@ -97,7 +97,7 @@ function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
       else
         let l:description = g:jsdoc_param_description_seperator . a:argDescription
       endif
-      call add(a:lines, a:space . ' * @param ' . a:arg . l:type . l:description)
+      call add(a:lines, a:space . ' * @param ' . l:type . a:arg . l:description)
     endif
   endif
   return a:lines
@@ -111,7 +111,7 @@ function! jsdoc#insert()
 
   let l:line = getline('.')
   let l:indentCharSpace = ' '
-  let l:indentCharTab = '	'
+  let l:indentCharTab = '       '
   let l:autoexpandtab = &l:expandtab
 
   if l:autoexpandtab == 0 " noexpandtab
