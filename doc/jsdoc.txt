@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JsDoc to your JavaScript code.
 
-Version: 0.1.1
+Version: 0.2.0
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -52,8 +52,8 @@ Define function to your code.
 >
   /**
    * foo
-   * @param arg1
-   * @param arg2
+   * @param {} arg1
+   * @param {} arg2
    */
   function foo(arg1, arg2) {
   }
@@ -61,8 +61,8 @@ Define function to your code.
   var obj = {
     /**
      * foo
-     * @param arg1
-     * @param arg2
+     * @param {} arg1
+     * @param {} arg2
      */
     foo: function (arg1, arg2) {
     }
@@ -165,9 +165,9 @@ g:jsdoc_custom_args_hook		*g:jsdoc_custom_args_hook*
 		/**
 		 * foo
 		 *
-		 * @param bar
-		 * @param callback {Function} Callback function
-		 * @param cb {Function} Callback function
+		 * @param {} bar
+		 * @param {Function} callback Callback function
+		 * @param {Function} cb Callback function
 		 * @return {undefined}
 		 */
 		function foo(bar, callback, cb) {
@@ -175,6 +175,10 @@ g:jsdoc_custom_args_hook		*g:jsdoc_custom_args_hook*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2015-06-19
+- Fixes the jsdoc comment format.
+  (thx @IonicaBizau)
+
 2015-06-10
 - Add g:jsdoc_custom_args_hook to override default type and description.
 
