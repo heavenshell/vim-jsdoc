@@ -84,7 +84,7 @@ function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
       let l:customArg = g:jsdoc_custom_args_hook[l:matchedArg]
       if a:argType == ''
         if has_key(l:customArg, 'type')
-          let l:type = ' ' . l:customArg['type']
+          let l:type = l:customArg['type'] . ' '
         endif
       else
         let l:type = '{' . a:argType . '} '
