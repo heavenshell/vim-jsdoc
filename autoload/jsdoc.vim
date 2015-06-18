@@ -111,7 +111,7 @@ function! jsdoc#insert()
 
   let l:line = getline('.')
   let l:indentCharSpace = ' '
-  let l:indentCharTab = '       '
+  let l:indentCharTab = '	'
   let l:autoexpandtab = &l:expandtab
 
   if l:autoexpandtab == 0 " noexpandtab
