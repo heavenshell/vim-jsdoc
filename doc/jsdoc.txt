@@ -135,9 +135,9 @@ g:jsdoc_allow_shorthand			*g:jsdoc_allow_shorthand*
 
 		Default value is '0'
 
-g:jsdoc_param_description_seperator	*g:jsdoc_param_description_seperator*
+g:jsdoc_param_description_separator	*g:jsdoc_param_description_separator*
 
-		Characters used to seperate @param name and description
+		Characters used to separate @param name and description
 		for more readable descriptions.
 
 		Default value is ' '
@@ -183,7 +183,7 @@ CHANGELOG					*jsdoc-changelog*
 - Add g:jsdoc_custom_args_hook to override default type and description.
 
 2015-05-27
-- Add seperator between @param's name and description for better readability.
+- Add separator between @param's name and description for better readability.
   (thx @aars)
 
 2015-04-28
