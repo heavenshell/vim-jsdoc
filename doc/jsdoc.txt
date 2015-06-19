@@ -1,4 +1,4 @@
-*jsdoc.txt*	Generate JsDoc to your JavaScript code.
+*jsdoc.txt*	Generate JSDoc to your JavaScript code.
 
 Version: 0.2.0
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
@@ -17,7 +17,7 @@ Variables		|jsdoc-variables|
 ==============================================================================
 INTRODUCTION					*jsdoc-vim-introduction*
 
-|jsdoc| is a generater of JsDoc.
+|jsdoc| is a generator of JSDoc.
 
 - This plugin based on https://gist.github.com/3903772#file-jsdoc-vim
   written by NAKAMURA, Hisashi(https://gist.github.com/sunvisor)
@@ -74,7 +74,7 @@ VARIABLES					*jsdoc-vim-variables*
 
 g:jsdoc_additional_descriptions		*g:jsdoc_additional_descriptions*
 		If g:jsdoc_input_description is '1' @function and @name
-		append to JsDoc.
+		append to JSDoc.
 
 		Default value is '0'
 
@@ -86,9 +86,9 @@ g:jsdoc_input_description		*g:jsdoc_input_description*
 
 g:jsdoc_allow_input_prompt		*g:jsdoc_allow_input_prompt*
 		Allow prompt for a value for `@param`, `@return`
-		add it to the JsDoc block.
+		add it to the JSDoc block.
 		If prompt not allowed, only `@param`, `@return` add to the
-		JsDoc.
+		JSDoc.
 		This variables affects to g:jsdoc_return_type and
 		g:jsdoc_return_description.
 
@@ -158,9 +158,9 @@ g:jsdoc_custom_args_hook		*g:jsdoc_custom_args_hook*
 		\}
 
 		The key of g:jsdoc_custom_args_hook is regex to hook
-		If function's signeture include `callback` or `cb`
-		and g:jsdoc_custom_args_hook's key matched JsDoc.vim would
-		genrate like following.
+		If function's signature include `callback` or `cb`
+		and g:jsdoc_custom_args_hook's key matched jsdoc.vim would
+		generate like following.
 
 		/**
 		 * foo
