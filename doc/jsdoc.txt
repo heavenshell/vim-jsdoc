@@ -175,6 +175,10 @@ g:jsdoc_custom_args_hook		*g:jsdoc_custom_args_hook*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2015-06-20
+- Fixes Spelling and formatting.
+  (thx @ryanoasis)
+
 2015-06-19
 - Fixes the jsdoc comment format.
   (thx @IonicaBizau)
