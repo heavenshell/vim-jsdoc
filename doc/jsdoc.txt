@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JSDoc to your JavaScript code.
 
-Version: 0.2.0
+Version: 0.2.1
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
