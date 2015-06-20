@@ -3,7 +3,7 @@
 " Modifyed: Shinya Ohyanagi <sohyanagi@gmail.com>
 " Version:  0.2.0
 " WebPage:  http://github.com/heavenshell/vim-jsdoc/
-" Description: Generate JsDoc to your JavaScript file.
+" Description: Generate JSDoc to your JavaScript file.
 " License: BSD, see LICENSE for more details.
 
 let s:save_cpo = &cpo
@@ -50,9 +50,9 @@ endif
 if !exists('g:jsdoc_allow_shorthand')
   let g:jsdoc_allow_shorthand = 0
 endif
-" Use seperator between @param name and description.
-if !exists('g:jsdoc_param_description_seperator')
-    let g:jsdoc_param_description_seperator = " "
+" Use separator between @param name and description.
+if !exists('g:jsdoc_param_description_separator')
+    let g:jsdoc_param_description_separator = " "
 endif
 
 " Insert defined type and description if arg is matched to defined regex.
@@ -76,7 +76,7 @@ function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
       let l:type = '{' . a:argType . '} '
       let l:description = ''
       if a:argDescription != ''
-        let l:description = g:jsdoc_param_description_seperator . a:argDescription
+        let l:description = g:jsdoc_param_description_separator . a:argDescription
       endif
       call add(a:lines, a:space . ' * @param ' . l:type . a:arg . l:description)
     else
@@ -92,10 +92,10 @@ function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
       let l:description = ''
       if a:argDescription == ''
         if has_key(l:customArg, 'description')
-          let l:description = g:jsdoc_param_description_seperator . l:customArg['description']
+          let l:description = g:jsdoc_param_description_separator . l:customArg['description']
         endif
       else
-        let l:description = g:jsdoc_param_description_seperator . a:argDescription
+        let l:description = g:jsdoc_param_description_separator . a:argDescription
       endif
       call add(a:lines, a:space . ' * @param ' . l:type . a:arg . l:description)
     endif
@@ -188,9 +188,9 @@ function! jsdoc#insert()
         let l:argDescription = input('Argument "' . l:arg . '" description: ')
 
         if g:jsdoc_custom_args_hook == {}
-          " Prepend seperator to start of description only if it was provided
+          " Prepend separator to start of description only if it was provided
           if l:argDescription != ''
-            let l:argDescription = g:jsdoc_param_description_seperator . l:argDescription
+            let l:argDescription = g:jsdoc_param_description_separator . l:argDescription
           endif
           call add(l:lines, l:space . ' * @param {' . l:argType . '} ' . l:arg . l:argDescription)
         else

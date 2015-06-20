@@ -3,7 +3,7 @@
 " Modifyed: Shinya Ohyanagi <sohyanagi@gmail.com>
 " Version:  0.2.0
 " WebPage:  http://github.com/heavenshell/vim-jsdoc/
-" Description: Generate JsDoc to your JavaScript file.
+" Description: Generate JSDoc to your JavaScript file.
 " License: BSD, see LICENSE for more details.
 
 let s:save_cpo = &cpo
