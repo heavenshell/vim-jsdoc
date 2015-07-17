@@ -15,7 +15,7 @@ Data type tab completion supported for parameter and return types
 ## Usage
 
   1. Move cursor on `function` keyword line.
-  2. Type `:JsDoc` which is default key mapping to insert JSDoc.
+  2. Type `:JsDoc` to insert JSDoc.
   3. Insert JSDoc above the `function` keyword line.
 
 ## Configuration
