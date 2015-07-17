@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JSDoc to your JavaScript code.
 
-Version: 0.2.1
+Version: 0.3.0
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -109,11 +109,6 @@ g:jsdoc_return_description		*g:jsdoc_return_description*
 
 		Default value is '1'
 
-g:jsdoc_default_mapping			*g:jsdoc_default_mapping*
-		Automatically map to <C-l>
-
-		Default value is '1'
-
 g:jsdoc_access_descriptions		*g:jsdoc_access_descriptions*
 
 		Set value to 1 to turn on access tags like
@@ -175,6 +170,10 @@ g:jsdoc_custom_args_hook		*g:jsdoc_custom_args_hook*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2015-07-18
+- Remove g:jsdoc_default_mapping.
+  See https://github.com/heavenshell/vim-jsdoc/issues/33 details.
+
 2015-06-20
 - Fixes Spelling and formatting.
   (thx @ryanoasis)

@@ -33,3 +33,11 @@ Option                                  | Default | Description
 **g:jsdoc_underscore_private**          | 0       | Set value to 1 to turn on detecting underscore starting functions as private convention
 **g:jsdoc_allow_shorthand**             | 0       | Set value to 1 to allow ECMAScript6 shorthand syntax.
 **g:jsdoc_param_description_separator** | ' '     | Characters used to separate `@param` name and description.
+
+## Keymap
+Scince ver 0.3, `g:jsdoc_default_mapping` was removed.
+
+Add following setting to .vimrc if want same behavior as before.
+```viml
+nmap <silent> <C-l> <Plug>(jsdoc)
+```
