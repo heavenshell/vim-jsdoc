@@ -37,7 +37,7 @@ Option                                  | Default | Description
 ## Keymap
 Scince ver 0.3, `g:jsdoc_default_mapping` was removed.
 
-Add following setting to .vimrc if want same behavior as before.
+Add following setting to .vimrc if you want same behavior as ver `0.2.1`.
 ```viml
 nmap <silent> <C-l> <Plug>(jsdoc)
 ```
