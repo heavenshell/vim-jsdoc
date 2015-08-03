@@ -35,9 +35,9 @@ Option                                  | Default | Description
 **g:jsdoc_custom_args_hook**            | {}      | Override default type and description. See help more detail.
 
 ## Keymap
-Scince ver 0.3, `g:jsdoc_default_mapping` was removed.
+Since version `0.3`, `g:jsdoc_default_mapping` was removed.
 
-Add following setting to .vimrc if you want same behavior as ver `0.2.1`.
+Add following setting to .vimrc if you want same behavior as version `0.2.1`.
 ```viml
 nmap <silent> <C-l> <Plug>(jsdoc)
 ```
