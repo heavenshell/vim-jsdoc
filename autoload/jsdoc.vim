@@ -62,7 +62,7 @@ endif
 
 " Return data types for argument type auto completion :)
 function! jsdoc#listDataTypes(A,L,P)
-  let l:types = ['boolean', 'null', 'undefined', 'number', 'string', 'symbol', 'object']
+  let l:types = ['boolean', 'null', 'undefined', 'number', 'string', 'symbol', 'object', 'function', 'array']
   return join(l:types, "\n")
 endfunction
 
