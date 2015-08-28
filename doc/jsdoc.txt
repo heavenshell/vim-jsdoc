@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JSDoc to your JavaScript code.
 
-Version: 0.3.0
+Version: 0.3.1
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -170,6 +170,10 @@ g:jsdoc_custom_args_hook		*g:jsdoc_custom_args_hook*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2015-08-28
+- Add function and array to tab completion
+  (thx @jacoborus)
+
 2015-07-18
 - Remove g:jsdoc_default_mapping.
   See https://github.com/heavenshell/vim-jsdoc/issues/33 details.
