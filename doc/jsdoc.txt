@@ -168,8 +168,28 @@ g:jsdoc_custom_args_hook		*g:jsdoc_custom_args_hook*
 		function foo(bar, callback, cb) {
 		}
 
+g:jsdoc_type_hook					*g:jsdoc_type_hook*
+		Allow to insert default description depending on the type.
+
+		Default value is '{}'
+>
+		If you set following setting to .vimrc or _vimrc.
+
+		let g:jsdoc_type_hook = {
+		  \ 'object': 'An object containing the following fields',
+		  \ 'function': 'Callback function'
+		  \ }
+
+		The key of g:jsdoc_type_hook is a variable type.
+		If type is an {object}, insert g:jsdoc_type_hook['object']'s
+		value automagically.
+
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2015-08-29
+- Add g:jsdoc_type_hook.
+  See https://github.com/heavenshell/vim-jsdoc/issues/36 details.
+
 2015-08-28
 - Add function and array to tab completion
   (thx @jacoborus)

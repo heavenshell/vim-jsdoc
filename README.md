@@ -33,6 +33,7 @@ Option                                  | Default | Description
 **g:jsdoc_allow_shorthand**             | 0       | Set value to 1 to allow ECMAScript6 shorthand syntax.
 **g:jsdoc_param_description_separator** | ' '     | Characters used to separate `@param` name and description.
 **g:jsdoc_custom_args_hook**            | {}      | Override default type and description. See help more detail.
+**g:jsdoc_type_hook**                   | {}      | Allow to insert default description depending on the type.
 
 ## Keymap
 Since version `0.3`, `g:jsdoc_default_mapping` was removed.
