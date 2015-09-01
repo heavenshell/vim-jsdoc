@@ -71,11 +71,28 @@ function! jsdoc#listDataTypes(A,L,P)
 endfunction
 
 function! s:build_description(argType, arg)
+  let description = ''
+  let override = 0
   if has_key(g:jsdoc_type_hook, a:argType)
-    return g:jsdoc_type_hook[a:argType]
+    if type(g:jsdoc_type_hook[a:argType]) == 1
+      let description = g:jsdoc_type_hook[a:argType]
+    elseif type(g:jsdoc_type_hook[a:argType]) == 4
+      if has_key(g:jsdoc_type_hook[a:argType], 'force_override')
+        let override = g:jsdoc_type_hook[a:argType]['force_override']
+      endif
+      if has_key(g:jsdoc_type_hook[a:argType], 'description')
+        let description = g:jsdoc_type_hook[a:argType]['description']
+      endif
+    endif
+  endif
+  if override == 0
+    let inputDescription = input('Argument "' . a:arg . '" description: ')
+    if inputDescription != ''
+      let description = inputDescription
+    endif
   endif
 
-  return input('Argument "' . a:arg . '" description: ')
+  return description
 endfunction
 
 function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
