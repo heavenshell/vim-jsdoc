@@ -176,13 +176,19 @@ g:jsdoc_type_hook					*g:jsdoc_type_hook*
 		If you set following setting to .vimrc or _vimrc.
 
 		let g:jsdoc_type_hook = {
-		  \ 'object': 'An object containing the following fields',
+		  \ 'object': {
+		  \   'description':'An object containing the following fields',
+		  \   'force_override': 1,
+		  \ },
 		  \ 'function': 'Callback function'
 		  \ }
-
 		The key of g:jsdoc_type_hook is a variable type.
-		If type is an {object}, insert g:jsdoc_type_hook['object']'s
-		value automagically.
+		If type is an {object} and force_override is 1,
+		insert g:jsdoc_type_hook['object']['description'] automagically.
+		If forece_override is 0 or not set, JSDoc.vim ask to
+		input description. If you did not enter description,
+		g:jsdoc_type_hook['object']['description'] would insert 
+		automagically.
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
