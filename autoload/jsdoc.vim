@@ -1,7 +1,7 @@
 " File: jsdoc.vim
 " Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 " Modifyed: Shinya Ohyanagi <sohyanagi@gmail.com>
-" Version:  0.3.1
+" Version:  0.4.0
 " WebPage:  http://github.com/heavenshell/vim-jsdoc/
 " Description: Generate JSDoc to your JavaScript file.
 " License: BSD, see LICENSE for more details.
@@ -60,10 +60,39 @@ if !exists('g:jsdoc_custom_args_hook')
   let g:jsdoc_custom_args_hook = {}
 endif
 
+if !exists('g:jsdoc_type_hook')
+  let g:jsdoc_type_hook = {}
+endif
+
 " Return data types for argument type auto completion :)
 function! jsdoc#listDataTypes(A,L,P)
   let l:types = ['boolean', 'null', 'undefined', 'number', 'string', 'symbol', 'object', 'function', 'array']
   return join(l:types, "\n")
+endfunction
+
+function! s:build_description(argType, arg)
+  let description = ''
+  let override = 0
+  if has_key(g:jsdoc_type_hook, a:argType)
+    if type(g:jsdoc_type_hook[a:argType]) == 1
+      let description = g:jsdoc_type_hook[a:argType]
+    elseif type(g:jsdoc_type_hook[a:argType]) == 4
+      if has_key(g:jsdoc_type_hook[a:argType], 'force_override')
+        let override = g:jsdoc_type_hook[a:argType]['force_override']
+      endif
+      if has_key(g:jsdoc_type_hook[a:argType], 'description')
+        let description = g:jsdoc_type_hook[a:argType]['description']
+      endif
+    endif
+  endif
+  if override == 0
+    let inputDescription = input('Argument "' . a:arg . '" description: ')
+    if inputDescription != ''
+      let description = inputDescription
+    endif
+  endif
+
+  return description
 endfunction
 
 function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
@@ -185,8 +214,7 @@ function! jsdoc#insert()
     for l:arg in l:args
       if g:jsdoc_allow_input_prompt == 1
         let l:argType = input('Argument "' . l:arg . '" type: ', '', 'custom,jsdoc#listDataTypes')
-        let l:argDescription = input('Argument "' . l:arg . '" description: ')
-
+        let l:argDescription = s:build_description(l:argType, l:arg)
         if g:jsdoc_custom_args_hook == {}
           " Prepend separator to start of description only if it was provided
           if l:argDescription != ''
