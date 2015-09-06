@@ -48,7 +48,6 @@ endif
 " foo(data) {
 " }
 if !exists('g:jsdoc_allow_shorthand')
-  echomsg 'g:jsdoc_allow_shorthand is deprecated. Use g:jsdoc_enable_es6 instead.'
   let g:jsdoc_allow_shorthand = 0
 endif
 " Use separator between @param name and description.
@@ -73,6 +72,10 @@ endfunction
 
 if !exists('g:jsdoc_enable_es6')
   let g:jsdoc_enable_es6 = 0
+endif
+
+if g:jsdoc_allow_shorthand == 1
+  echohl Error | echomsg 'g:jsdoc_allow_shorthand is deprecated. Use g:jsdoc_enable_es6 instead.' | echohl None
 endif
 
 function! s:build_description(argType, arg)
