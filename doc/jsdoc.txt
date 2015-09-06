@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JSDoc to your JavaScript code.
 
-Version: 0.5.0
+Version: 0.5.1
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -125,10 +125,10 @@ g:jsdoc_underscore_private		*g:jsdoc_underscore_private*
 		Default value is '0'
 
 g:jsdoc_allow_shorthand			*g:jsdoc_allow_shorthand*
-
 		Set value to 1 to allow ECMAScript6 shorthand syntax.
 
 		Default value is '0'
+		Deprecated since ver 0.5.0
 
 g:jsdoc_param_description_separator	*g:jsdoc_param_description_separator*
 
@@ -199,6 +199,9 @@ g:jsdoc_enable_es6					*g:jsdoc_enable_es6*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2015-09-06
+- g:jsdoc_allow_shorthand is deprecated. Use g:jsdoc_enable_es6 instead.
+
 2015-09-05
 - Add g:jsdoc_enable_es6.
   If g:jsdoc_enable_es6 is '1', JSDoc vim can use Arrow function.

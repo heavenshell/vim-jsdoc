@@ -1,7 +1,7 @@
 " File: jsdoc.vim
 " Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 " Modifyed: Shinya Ohyanagi <sohyanagi@gmail.com>
-" Version:  0.5.0
+" Version:  0.5.1
 " WebPage:  http://github.com/heavenshell/vim-jsdoc/
 " Description: Generate JSDoc to your JavaScript file.
 " License: BSD, see LICENSE for more details.
@@ -48,6 +48,7 @@ endif
 " foo(data) {
 " }
 if !exists('g:jsdoc_allow_shorthand')
+  echomsg 'g:jsdoc_allow_shorthand is deprecated. Use g:jsdoc_enable_es6 instead.'
   let g:jsdoc_allow_shorthand = 0
 endif
 " Use separator between @param name and description.
@@ -176,7 +177,7 @@ function! jsdoc#insert()
   elseif l:line =~ l:jsDocregex2
     let l:flag = 1
     let l:regex = l:jsDocregex2
-  elseif g:jsdoc_allow_shorthand == 1 && l:line =~ l:jsDocregex3
+  elseif (g:jsdoc_allow_shorthand == 1 || g:jsdoc_enable_es6 == 1) && l:line =~ l:jsDocregex3
     let l:flag = 1
     let l:regex = l:jsDocregex3
   elseif g:jsdoc_enable_es6 == 1 && l:line =~ l:jsDocregex4
