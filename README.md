@@ -30,10 +30,11 @@ Option                                  | Default | Description
 **g:jsdoc_return_description**          | 1       | Prompt for and add a description for the `@return` tag.
 **g:jsdoc_access_descriptions**         | 0       | Set value to 1 to turn on access tags like `@access <private|public>`. Set value to 2 to turn on access tags like `@<private|public>`
 **g:jsdoc_underscore_private**          | 0       | Set value to 1 to turn on detecting underscore starting functions as private convention
-**g:jsdoc_allow_shorthand**             | 0       | Set value to 1 to allow ECMAScript6 shorthand syntax.
+**g:jsdoc_allow_shorthand**             | 0       | Set value to 1 to allow ECMAScript6 shorthand syntax. Since ver `0.5.0` deprecated. Use `g:jsdoc_enable_es6` instead.
 **g:jsdoc_param_description_separator** | ' '     | Characters used to separate `@param` name and description.
 **g:jsdoc_custom_args_hook**            | {}      | Override default type and description. See help more detail.
 **g:jsdoc_type_hook**                   | {}      | Allow to insert default description depending on the type.
+**g:jsdoc_enable_es6**                  | 0       | Enable to use ECMAScript6's Shorthand function, Arrow function.
 
 ## Keymap
 Since version `0.3`, `g:jsdoc_default_mapping` was removed.

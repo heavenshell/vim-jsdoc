@@ -1,7 +1,7 @@
 " File: jsdoc.vim
 " Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 " Modifyed: Shinya Ohyanagi <sohyanagi@gmail.com>
-" Version:  0.4.0
+" Version:  0.5.1
 " WebPage:  http://github.com/heavenshell/vim-jsdoc/
 " Description: Generate JSDoc to your JavaScript file.
 " License: BSD, see LICENSE for more details.
@@ -70,6 +70,14 @@ function! jsdoc#listDataTypes(A,L,P)
   return join(l:types, "\n")
 endfunction
 
+if !exists('g:jsdoc_enable_es6')
+  let g:jsdoc_enable_es6 = 0
+endif
+
+if g:jsdoc_allow_shorthand == 1
+  echohl Error | echomsg 'g:jsdoc_allow_shorthand is deprecated. Use g:jsdoc_enable_es6 instead.' | echohl None
+endif
+
 function! s:build_description(argType, arg)
   let description = ''
   let override = 0
@@ -137,6 +145,17 @@ function! jsdoc#insert()
   let l:jsDocregex2 = '^.\{-}\s*function\s\+\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*\**(\s*\([^)]*\)\s*).*$'
   " ECMAScript6 shorthand syntax.
   let l:jsDocregex3 = '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$'
+  " FIXME
+  " /**
+  "  * foo
+  "  *
+  "  * @param {} (arg1
+  "  * @param {} arg2)
+  "  * @return {undefined}
+  "  */
+  " const foo = (arg1, arg2) => true;
+  " We don't need `(` and `)`.
+  let l:jsDocregex4 = '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*\(\([^)]*\)\s*)\|[a-zA-Z0-9_$]*\)\s=>.*$'
 
   let l:line = getline('.')
   let l:indentCharSpace = ' '
@@ -161,9 +180,12 @@ function! jsdoc#insert()
   elseif l:line =~ l:jsDocregex2
     let l:flag = 1
     let l:regex = l:jsDocregex2
-  elseif g:jsdoc_allow_shorthand == 1 && l:line =~ l:jsDocregex3
+  elseif (g:jsdoc_allow_shorthand == 1 || g:jsdoc_enable_es6 == 1) && l:line =~ l:jsDocregex3
     let l:flag = 1
     let l:regex = l:jsDocregex3
+  elseif g:jsdoc_enable_es6 == 1 && l:line =~ l:jsDocregex4
+    let l:flag = 1
+    let l:regex = l:jsDocregex4
   else
     let l:flag = 0
   endif
@@ -212,6 +234,10 @@ function! jsdoc#insert()
 
     let hook = keys(g:jsdoc_custom_args_hook)
     for l:arg in l:args
+      if g:jsdoc_enable_es6 == 1
+        " Remove `(` or `)` from args.
+        let l:arg = substitute(l:arg, '\((\|)\)', "", "")
+      endif
       if g:jsdoc_allow_input_prompt == 1
         let l:argType = input('Argument "' . l:arg . '" type: ', '', 'custom,jsdoc#listDataTypes')
         let l:argDescription = s:build_description(l:argType, l:arg)
