@@ -199,6 +199,11 @@ g:jsdoc_enable_es6					*g:jsdoc_enable_es6*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2015-09-12
+- Tiny refactor.
+  Change regex declaration local scope to script scope for not eval every
+  method call.
+
 2015-09-06
 - g:jsdoc_allow_shorthand is deprecated. Use g:jsdoc_enable_es6 instead.
 
