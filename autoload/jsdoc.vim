@@ -78,6 +78,18 @@ if g:jsdoc_allow_shorthand == 1
   echohl Error | echomsg 'g:jsdoc_allow_shorthand is deprecated. Use g:jsdoc_enable_es6 instead.' | echohl None
 endif
 
+" FIXME
+" regex['arrow'] extracted extra chars.
+" If `const foo = (arg1, arg2) => true;` extracts `(arg`, `arg2)`.
+" We don't need `(` and `)`.
+" Currently `(` and `)` are deleted by substitute().
+let s:regexs = {
+  \  'method': '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*function\s*\**(\s*\([^)]*\)\s*).*$',
+  \  'function': '^.\{-}\s*function\s\+\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*\**(\s*\([^)]*\)\s*).*$',
+  \  'shorthand': '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$',
+  \  'arrow': '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*\(\([^)]*\)\s*)\|[a-zA-Z0-9_$]*\)\s=>.*$'
+\ }
+
 function! s:build_description(argType, arg)
   let description = ''
   let override = 0
@@ -141,22 +153,6 @@ function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
 endfunction
 
 function! jsdoc#insert()
-  let l:jsDocregex = '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*function\s*\**(\s*\([^)]*\)\s*).*$'
-  let l:jsDocregex2 = '^.\{-}\s*function\s\+\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*\**(\s*\([^)]*\)\s*).*$'
-  " ECMAScript6 shorthand syntax.
-  let l:jsDocregex3 = '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$'
-  " FIXME
-  " /**
-  "  * foo
-  "  *
-  "  * @param {} (arg1
-  "  * @param {} arg2)
-  "  * @return {undefined}
-  "  */
-  " const foo = (arg1, arg2) => true;
-  " We don't need `(` and `)`.
-  let l:jsDocregex4 = '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*\(\([^)]*\)\s*)\|[a-zA-Z0-9_$]*\)\s=>.*$'
-
   let l:line = getline('.')
   let l:indentCharSpace = ' '
   let l:indentCharTab = '	'
@@ -174,18 +170,18 @@ function! jsdoc#insert()
 
   let l:space = repeat(l:indentChar, l:indent)
 
-  if l:line =~ l:jsDocregex
+  if l:line =~ s:regexs['function']
     let l:flag = 1
-    let l:regex = l:jsDocregex
-  elseif l:line =~ l:jsDocregex2
+    let l:regex = s:regexs['function']
+  elseif l:line =~ s:regexs['method']
     let l:flag = 1
-    let l:regex = l:jsDocregex2
-  elseif (g:jsdoc_allow_shorthand == 1 || g:jsdoc_enable_es6 == 1) && l:line =~ l:jsDocregex3
+    let l:regex = s:regexs['method']
+  elseif (g:jsdoc_allow_shorthand == 1 || g:jsdoc_enable_es6 == 1) && l:line =~ s:regexs['shorthand']
     let l:flag = 1
-    let l:regex = l:jsDocregex3
-  elseif g:jsdoc_enable_es6 == 1 && l:line =~ l:jsDocregex4
+    let l:regex = s:regexs['shorthand']
+  elseif g:jsdoc_enable_es6 == 1 && l:line =~ s:regexs['arrow']
     let l:flag = 1
-    let l:regex = l:jsDocregex4
+    let l:regex = s:regexs['arrow']
   else
     let l:flag = 0
   endif
