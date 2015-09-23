@@ -43,3 +43,9 @@ Add following setting to .vimrc if you want same behavior as version `0.2.1`.
 ```viml
 nmap <silent> <C-l> <Plug>(jsdoc)
 ```
+
+Alternatively, you could add the following setting to your .vimrc to search for the last `function` declaration
+and puts your jsdoc above it:
+```viml
+nmap <silent> <C-l> ?function<cr>:noh<cr><Plug>(jsdoc)
+```
