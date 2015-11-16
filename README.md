@@ -23,7 +23,7 @@ Data type tab completion supported for parameter and return types
 Option                                  | Default | Description
 :-------------------------------------- | :------ | :----------
 **g:jsdoc_allow_input_prompt**          | 0       | Allow prompt for interactive input.
-**g:jsdoc_input_description**           | 1       | Prompt for a function description
+**g:jsdoc_input_description**           | 0       | Prompt for a function description
 **g:jsdoc_additional_descriptions**     | 0       | Prompt for a value for `@name`, add it to the JSDoc block comment along with the `@function` tag.
 **g:jsdoc_return**                      | 1       | Add the `@return` tag.
 **g:jsdoc_return_type**                 | 1       | Prompt for and add a type for the aforementioned `@return` tag.

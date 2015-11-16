@@ -82,7 +82,7 @@ g:jsdoc_input_description		*g:jsdoc_input_description*
 		If g:jsdoc_input_description is '1' Prompt for a function
 		description.
 
-		Default value is '1'
+		Default value is '0'
 
 g:jsdoc_allow_input_prompt		*g:jsdoc_allow_input_prompt*
 		Allow prompt for a value for `@param`, `@return`
