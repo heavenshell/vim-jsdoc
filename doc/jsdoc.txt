@@ -213,6 +213,10 @@ g:jsdoc_tags						*g:jsdoc_tags*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2015-12-14
+- Adds support for tag synonyms.
+  (thx @ryanoasis)
+
 2015-09-12
 - Tiny refactor.
   Change regex declaration local scope to script scope for not eval every
