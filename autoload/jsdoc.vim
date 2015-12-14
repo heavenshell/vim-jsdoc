@@ -64,6 +64,32 @@ if !exists('g:jsdoc_type_hook')
   let g:jsdoc_type_hook = {}
 endif
 
+if !exists('g:jsdoc_tags')
+  let g:jsdoc_tags = {}
+endif
+
+" Allows for use of custom synonyms
+" e.g. @return instead of @returns
+" possible list:
+" @returns (synonyms: @return)
+" @function (synonyms: @func, @method)
+" @param (synonyms: @arg, @argument)
+" @description (synonyms: @desc)
+" @class (synonyms: @constructor)
+let s:jsdoc_tags = {
+  \  'returns': 'returns',
+  \  'function': 'function',
+  \  'param': 'param',
+  \  'class': 'class'
+\}
+
+" iterate over to allow user overriding of specific individual keys in vimrc
+for [key, val] in items(s:jsdoc_tags)
+  if !has_key(g:jsdoc_tags, key)
+    let g:jsdoc_tags[key] = val
+  endif
+endfor
+
 " Return data types for argument type auto completion :)
 function! jsdoc#listDataTypes(A, L, P)
   let l:types = ['boolean', 'null', 'undefined', 'number', 'string', 'symbol', 'object', 'function', 'array']
@@ -118,7 +144,7 @@ endfunction
 function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
   " Hook function signature's args for insert as default value.
   if g:jsdoc_custom_args_hook == {}
-    call add(a:lines, a:space . ' * @param ' . a:arg)
+    call add(a:lines, a:space . ' * @' . g:jsdoc_tags['param'] . ' ' . a:arg)
   else
     let l:matchedArg = matchstr(a:hook, a:arg)
     if l:matchedArg == ''
@@ -127,7 +153,7 @@ function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
       if a:argDescription != ''
         let l:description = g:jsdoc_param_description_separator . a:argDescription
       endif
-      call add(a:lines, a:space . ' * @param ' . l:type . a:arg . l:description)
+      call add(a:lines, a:space . ' * @' . g:jsdoc_tags['param'] . ' ' . l:type . a:arg . l:description)
     else
       let l:type = ''
       let l:customArg = g:jsdoc_custom_args_hook[l:matchedArg]
@@ -146,7 +172,7 @@ function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
       else
         let l:description = g:jsdoc_param_description_separator . a:argDescription
       endif
-      call add(a:lines, a:space . ' * @param ' . l:type . a:arg . l:description)
+      call add(a:lines, a:space . ' * @' . g:jsdoc_tags['param'] . ' ' . l:type . a:arg . l:description)
     endif
   endif
   return a:lines
@@ -202,7 +228,7 @@ function! jsdoc#insert()
 
     if g:jsdoc_additional_descriptions == 1
       call add(l:lines, l:space . ' * @name ' . l:funcName)
-      call add(l:lines, l:space . ' * @function')
+      call add(l:lines, l:space . ' * @' . g:jsdoc_tags['function'])
     endif
 
     if g:jsdoc_access_descriptions > 0
@@ -242,7 +268,7 @@ function! jsdoc#insert()
           if l:argDescription != ''
             let l:argDescription = g:jsdoc_param_description_separator . l:argDescription
           endif
-          call add(l:lines, l:space . ' * @param {' . l:argType . '} ' . l:arg . l:argDescription)
+          call add(l:lines, l:space . ' * @' . g:jsdoc_tags['param'] . ' {' . l:argType . '} ' . l:arg . l:argDescription)
         else
           let l:lines = s:hookArgs(l:lines, l:space, l:arg, l:hook, l:argType, l:argDescription)
         endif
@@ -254,7 +280,7 @@ function! jsdoc#insert()
   endif
   if g:jsdoc_return == 1
     if g:jsdoc_allow_input_prompt == 1
-      let l:returnType = input('Return type (blank for no @return): ', '', 'custom,jsdoc#listDataTypes')
+      let l:returnType = input('Return type (blank for no @' . g:jsdoc_tags['returns'] . '): ', '', 'custom,jsdoc#listDataTypes')
       let l:returnDescription = ''
       if l:returnType != ''
         if g:jsdoc_return_description == 1
@@ -263,10 +289,10 @@ function! jsdoc#insert()
         if l:returnDescription != ''
           let l:returnDescription = ' ' . l:returnDescription
         endif
-        call add(l:lines, l:space . ' * @return {' . l:returnType . '}' . l:returnDescription)
+        call add(l:lines, l:space . ' * @' . g:jsdoc_tags['returns'] . ' {' . l:returnType . '}' . l:returnDescription)
       endif
     else
-      call add(l:lines, l:space . ' * @return {undefined}')
+      call add(l:lines, l:space . ' * @' . g:jsdoc_tags['returns'] . ' {undefined}')
     endif
   endif
   call add(l:lines, l:space . ' */')

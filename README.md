@@ -35,6 +35,7 @@ Option                                  | Default | Description
 **g:jsdoc_custom_args_hook**            | {}      | Override default type and description. See help more detail.
 **g:jsdoc_type_hook**                   | {}      | Allow to insert default description depending on the type.
 **g:jsdoc_enable_es6**                  | 0       | Enable to use ECMAScript6's Shorthand function, Arrow function.
+**g:jsdoc_tags**                        | see :h  | Allow use of alternate tags (the ones that support synonyms) per JSDoc documentation. Can be changed on a per tag basis, for example: `let g:jsdoc_tags = {} | let g:jsdoc_tags['param'] = 'arg'`
 
 ## Keymap
 Since version `0.3`, `g:jsdoc_default_mapping` was removed.

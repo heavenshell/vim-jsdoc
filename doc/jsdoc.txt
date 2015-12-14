@@ -130,7 +130,7 @@ g:jsdoc_allow_shorthand			*g:jsdoc_allow_shorthand*
 		Default value is '0'
 		Deprecated since ver 0.5.0
 
-g:jsdoc_param_description_separator	*g:jsdoc_param_description_separator*
+g:jsdoc_param_description_separator		*g:jsdoc_param_description_separator*
 
 		Characters used to separate @param name and description
 		for more readable descriptions.
@@ -196,6 +196,20 @@ g:jsdoc_enable_es6					*g:jsdoc_enable_es6*
 		- Arrow function
 		Default value is '0'
 
+g:jsdoc_tags						*g:jsdoc_tags*
+		Allow use of alternate tags
+		(the ones that support synonyms) per JsDoc
+		documentation.
+
+		Default value is:
+			{
+			  \  'returns': 'returns',
+			  \  'function': 'function',
+			  \  'param': 'param',
+			  \  'class': 'class'
+			\}
+>
+		Can be changed on a per tag basis, for example: let g:jsdoc_tags = {} | let g:jsdoc_tags['param'] = 'arg'
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
