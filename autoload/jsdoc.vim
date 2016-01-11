@@ -146,7 +146,7 @@ function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
   if g:jsdoc_custom_args_hook == {}
     call add(a:lines, a:space . ' * @' . g:jsdoc_tags['param'] . ' ' . a:arg)
   else
-    let l:matchedArg = matchstr(a:hook, a:arg)
+    let l:matchedArg = matchstr(a:arg, a:hook)
     if l:matchedArg == ''
       let l:type = '{' . a:argType . '} '
       let l:description = ''
