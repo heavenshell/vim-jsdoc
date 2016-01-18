@@ -113,7 +113,7 @@ let s:regexs = {
   \  'method': '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*function\s*\**(\s*\([^)]*\)\s*).*$',
   \  'function': '^.\{-}\s*function\s\+\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*\**(\s*\([^)]*\)\s*).*$',
   \  'shorthand': '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$',
-  \  'arrow': '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*\(\([^)]*\)\s*)\|[a-zA-Z0-9_$]*\)\s=>.*$'
+  \  'arrow': '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*\(\([^)]*\)\s*\)\|[a-zA-Z0-9_$]*\)\s=>.*$'
 \ }
 
 function! s:build_description(argType, arg)
