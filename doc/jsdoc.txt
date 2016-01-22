@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JSDoc to your JavaScript code.
 
-Version: 0.5.1
+Version: 0.6.0
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -232,7 +232,7 @@ g:jsdoc_type_hook					*g:jsdoc_type_hook*
 		insert g:jsdoc_type_hook['object']['description'] automagically.
 		If forece_override is 0 or not set, JSDoc.vim ask to
 		input description. If you did not enter description,
-		g:jsdoc_type_hook['object']['description'] would insert 
+		g:jsdoc_type_hook['object']['description'] would insert
 		automagically.
 
 g:jsdoc_enable_es6					*g:jsdoc_enable_es6*
@@ -258,6 +258,10 @@ g:jsdoc_tags						*g:jsdoc_tags*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2016-01-23
+- Add full regex mode for jsdoc_custom_args_hook
+  (thx @davidosomething)
+
 2015-12-14
 - Adds support for tag synonyms.
   (thx @ryanoasis)
