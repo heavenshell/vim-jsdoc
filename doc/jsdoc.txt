@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JSDoc to your JavaScript code.
 
-Version: 0.5.1
+Version: 0.6.0
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -168,6 +168,51 @@ g:jsdoc_custom_args_hook		*g:jsdoc_custom_args_hook*
 		function foo(bar, callback, cb) {
 		}
 
+g:jsdoc_custom_args_regex_only		*g:jsdoc_custom_args_regex_only*
+
+		Match against regexes only when using custom args.
+
+		Default value is 0
+
+		If you use this, you'll have to modify your custom arg keys
+		to be regexes. E.g.
+
+		let g:jsdoc_custom_args_regex_only = 1
+		let g:jsdoc_custom_args_hook = {
+			\   '^\$': {
+			\     'type': '{jQuery}'
+			\   },
+			\   'callback': {
+			\     'type': '{Function}',
+			\     'description': 'Callback function'
+			\   },
+			\   'data': {
+			\     'type': '{Object}'
+			\   },
+			\   '^e$': {
+			\     'type': '{Event}'
+			\   },
+			\   'el$': {
+			\     'type': '{Element}'
+			\   },
+			\   '\(err\|error\)$': {
+			\     'type': '{Error}'
+			\   },
+			\   'handler$': {
+			\     'type': '{Function}'
+			\   },
+			\   '^i$': {
+			\     'type': '{Number}'
+			\   },
+			\   '^_\?is': {
+			\     'type': '{Boolean}'
+			\   },
+			\   'options$': {
+			\     'type': '{Object}'
+			\   },
+			\ }
+
+
 g:jsdoc_type_hook					*g:jsdoc_type_hook*
 		Allow to insert default description depending on the type.
 
@@ -187,7 +232,7 @@ g:jsdoc_type_hook					*g:jsdoc_type_hook*
 		insert g:jsdoc_type_hook['object']['description'] automagically.
 		If forece_override is 0 or not set, JSDoc.vim ask to
 		input description. If you did not enter description,
-		g:jsdoc_type_hook['object']['description'] would insert 
+		g:jsdoc_type_hook['object']['description'] would insert
 		automagically.
 
 g:jsdoc_enable_es6					*g:jsdoc_enable_es6*
@@ -213,6 +258,10 @@ g:jsdoc_tags						*g:jsdoc_tags*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2016-01-23
+- Add full regex mode for jsdoc_custom_args_hook
+  (thx @davidosomething)
+
 2015-12-14
 - Adds support for tag synonyms.
   (thx @ryanoasis)

@@ -1,7 +1,7 @@
 " File: jsdoc.vim
 " Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 " Modifyed: Shinya Ohyanagi <sohyanagi@gmail.com>
-" Version:  0.5.2
+" Version:  0.6.0
 " WebPage:  http://github.com/heavenshell/vim-jsdoc/
 " Description: Generate JSDoc to your JavaScript file.
 " License: BSD, see LICENSE for more details.
@@ -100,6 +100,10 @@ if !exists('g:jsdoc_enable_es6')
   let g:jsdoc_enable_es6 = 0
 endif
 
+if !exists('g:jsdoc_custom_args_regex_only')
+  let g:jsdoc_custom_args_regex_only = 0
+endif
+
 if g:jsdoc_allow_shorthand == 1
   echohl Error | echomsg 'g:jsdoc_allow_shorthand is deprecated. Use g:jsdoc_enable_es6 instead.' | echohl None
 endif
@@ -146,7 +150,22 @@ function! s:hookArgs(lines, space, arg, hook, argType, argDescription)
   if g:jsdoc_custom_args_hook == {}
     call add(a:lines, a:space . ' * @' . g:jsdoc_tags['param'] . ' ' . a:arg)
   else
-    let l:matchedArg = matchstr(a:hook, a:arg)
+
+    let l:matchedArg = ''
+
+    if g:jsdoc_custom_args_regex_only == 1
+      " Loop through regexes list `hook = keys(g:jsdoc_custom_args_hook)` to
+      " find first instance where the arg name is matched by the hook regex
+      for l:pat in a:hook
+        if !empty(matchstr(a:arg, l:pat))
+          let l:matchedArg = l:pat
+          break
+        endif
+      endfor
+    else
+      let l:matchedArg = matchstr(a:hook, a:arg)
+    endif
+
     if l:matchedArg == ''
       let l:type = '{' . a:argType . '} '
       let l:description = ''
