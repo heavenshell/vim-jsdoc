@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JSDoc to your JavaScript code.
 
-Version: 0.6.0
+Version: 0.7.0
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -258,6 +258,11 @@ g:jsdoc_tags						*g:jsdoc_tags*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2016-04-30
+- vimlint and function generator regex support.
+  See https://github.com/heavenshell/vim-jsdoc/pull/54 detail.
+  (thx @davidosomething)
+
 2016-01-23
 - Add full regex mode for jsdoc_custom_args_hook
   (thx @davidosomething)
