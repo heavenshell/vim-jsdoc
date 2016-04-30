@@ -260,7 +260,11 @@ g:jsdoc_tags						*g:jsdoc_tags*
 CHANGELOG					*jsdoc-changelog*
 2016-04-30
 - vimlint and function generator regex support.
-  See https://github.com/heavenshell/vim-jsdoc/pull/54 detail.
+  See https://github.com/heavenshell/vim-jsdoc/pull/54 details.
+  (thx @davidosomething)
+
+- fix unbalanced parens in arrow regex.
+  See https://github.com/heavenshell/vim-jsdoc/pull/52 details.
   (thx @davidosomething)
 
 2016-01-23
