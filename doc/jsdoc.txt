@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JSDoc to your JavaScript code.
 
-Version: 0.8.0
+Version: 0.9.0
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -258,6 +258,9 @@ g:jsdoc_tags						*g:jsdoc_tags*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2016-05-03
+- Add @static support.
+
 2016-04-30
 - Add TypeScript support.
   (thx @faceleg)

@@ -1,7 +1,7 @@
 " File: jsdoc.vim
 " Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 " Modifyed: Shinya Ohyanagi <sohyanagi@gmail.com>
-" Version:  0.8.0
+" Version:  0.9.0
 " WebPage:  http://github.com/heavenshell/vim-jsdoc/
 " Description: Generate JSDoc to your JavaScript file.
 " License: BSD, see LICENSE for more details.
@@ -71,6 +71,7 @@ let s:regexs = {
       \   'function_expression':   '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*function\s*\**\s*(\s*\([^)]*\)\s*).*$',
       \   'anonymous_function':    '^.\{-}\s*function\s*\**\s*(\s*\([^)]*\)\s*).*$',
       \   'shorthand':             '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$',
+      \   'static':                '^.\{-}\s*static\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$',
       \   'arrow':                 '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*(\s*\([^)]*\)\s*)\s*=>.*$'
       \ }
 
@@ -181,6 +182,7 @@ function! jsdoc#insert() abort
   " Determine function defintion style
   let l:is_function = 0
   let l:is_named    = 0
+  let l:is_static   = 0
   if l:line =~ s:regexs['function_declaration']
     let l:is_function = 1
     let l:is_named    = 1
@@ -192,8 +194,15 @@ function! jsdoc#insert() abort
   elseif l:line =~ s:regexs['anonymous_function']
     let l:is_function = 1
     let l:regex       = s:regexs['anonymous_function']
-  elseif (g:jsdoc_allow_shorthand == 1 || g:jsdoc_enable_es6 == 1) && l:line =~ s:regexs['shorthand']
+  elseif g:jsdoc_enable_es6 == 1 && l:line =~ s:regexs['static']
     let l:is_function = 1
+    let l:is_named    = 1
+    let l:is_static   = 1
+    let l:regex       = s:regexs['static']
+  elseif (g:jsdoc_allow_shorthand == 1 || g:jsdoc_enable_es6 == 1) && l:line =~ s:regexs['shorthand']
+    echomsg string('shorthand')
+    let l:is_function = 1
+    let l:is_named    = 1
     let l:regex       = s:regexs['shorthand']
   elseif g:jsdoc_enable_es6 == 1 && l:line =~ s:regexs['arrow']
     let l:is_function = 1
@@ -244,6 +253,10 @@ function! jsdoc#insert() abort
             \ : 'public'
 
       call add(l:lines, l:space . l:access_tag . l:access)
+    endif
+
+    if l:is_static > 0
+      call add(l:lines, l:space . ' * @static')
     endif
 
     let l:hook = keys(g:jsdoc_custom_args_hook)

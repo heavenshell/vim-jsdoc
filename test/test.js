@@ -25,3 +25,8 @@ namespace.x3 = function testing(e) { }; // named method
 
 namespace.x4 = function* testgen(description) { }; // named method generator
 
+class Foo {
+  static foo(bar, baz) { } // static method
+
+  bar(aaa, bb, ccc) { } // shorthand method
+}
