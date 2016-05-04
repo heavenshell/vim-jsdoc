@@ -70,6 +70,8 @@ let s:regexs = {
       \   'function_declaration':  '^.\{-}\s*function\s*\*\?\s\+\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*\**(\s*\([^)]*\)\s*).*$',
       \   'function_expression':   '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*function\s*\**\s*(\s*\([^)]*\)\s*).*$',
       \   'anonymous_function':    '^.\{-}\s*function\s*\**\s*(\s*\([^)]*\)\s*).*$',
+      \   'class_extend':          '^.\{-}\s*class\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)*\s*extends\s*\(\([^{]*\)\).*$',
+      \   'class':                 '^.\{-}\s*class\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\).*$',
       \   'shorthand':             '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$',
       \   'static':                '^.\{-}\s*static\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$',
       \   'arrow':                 '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*(\s*\([^)]*\)\s*)\s*=>.*$'
@@ -180,6 +182,7 @@ function! jsdoc#insert() abort
   let l:space = repeat(l:indentChar, l:indent)
 
   " Determine function defintion style
+  let l:is_class    = 0
   let l:is_function = 0
   let l:is_named    = 0
   let l:is_static   = 0
@@ -208,16 +211,26 @@ function! jsdoc#insert() abort
     let l:is_function = 1
     let l:is_named    = 1
     let l:regex       = s:regexs['arrow']
+  elseif g:jsdoc_enable_es6 == 1 &&  l:line =~ s:regexs['class_extend']
+    let l:is_class    = 1
+    let l:is_named    = 1
+    let l:regex       = s:regexs['class_extend']
+  elseif g:jsdoc_enable_es6 == 1 &&  l:line =~ s:regexs['class']
+    let l:is_class    = 1
+    let l:is_named    = 1
+    let l:regex       = s:regexs['class']
   endif
 
   let l:lines = []
   let l:desc = g:jsdoc_input_description == 1 ? input('Description: ') : ''
   call add(l:lines, l:space . '/**')
   call add(l:lines, l:space . ' * ' . l:desc)
-  call add(l:lines, l:space . ' *')
+  if !l:is_class
+    call add(l:lines, l:space . ' *')
+  endif
 
   let l:funcName = ''
-  if l:is_function
+  if l:is_function || l:is_class
 
     " Parse function definition
     " @FIXME: Does not work if function is split over several lines...
@@ -234,7 +247,13 @@ function! jsdoc#insert() abort
     else
       let l:argString = substitute(l:line, l:regex, '\1', 'g')
     endif
-    let l:args = split(l:argString, '\s*,\s*')
+    let l:args = []
+    let l:parent_class = ''
+    if l:is_class
+      let l:parent_class = substitute(l:argString, '\s', '', '')
+    else
+      let l:args = split(l:argString, '\s*,\s*')
+    endif
 
     if g:jsdoc_additional_descriptions == 1
       call add(l:lines, l:space . ' * @name ' . l:funcName)
@@ -285,7 +304,13 @@ function! jsdoc#insert() abort
     endfor
   endif
 
-  if g:jsdoc_return == 1
+  if l:is_class
+    " Class does not need return description.
+    if l:parent_class != ''
+      call add(l:lines, l:space . ' *')
+      call add(l:lines, l:space . ' * @extends ' . l:parent_class)
+    endif
+  elseif g:jsdoc_return == 1
     if g:jsdoc_allow_input_prompt == 1
       let l:returnType = input('Return type (blank for no @' . g:jsdoc_tags['returns'] . '): ', '', 'custom,jsdoc#listDataTypes')
       let l:returnDescription = ''

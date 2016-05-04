@@ -259,6 +259,7 @@ g:jsdoc_tags						*g:jsdoc_tags*
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
 2016-05-03
+- Add ES2015 class.
 - Add @static support.
 
 2016-04-30

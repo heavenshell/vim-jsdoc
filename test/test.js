@@ -30,3 +30,5 @@ class Foo {
 
   bar(aaa, bb, ccc) { } // shorthand method
 }
+
+class Foo extends Bar { }
