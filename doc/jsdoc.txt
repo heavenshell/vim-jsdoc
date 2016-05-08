@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JSDoc to your JavaScript code.
 
-Version: 0.3.0
+Version: 0.9.0
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -82,7 +82,7 @@ g:jsdoc_input_description		*g:jsdoc_input_description*
 		If g:jsdoc_input_description is '1' Prompt for a function
 		description.
 
-		Default value is '1'
+		Default value is '0'
 
 g:jsdoc_allow_input_prompt		*g:jsdoc_allow_input_prompt*
 		Allow prompt for a value for `@param`, `@return`
@@ -125,12 +125,12 @@ g:jsdoc_underscore_private		*g:jsdoc_underscore_private*
 		Default value is '0'
 
 g:jsdoc_allow_shorthand			*g:jsdoc_allow_shorthand*
-
 		Set value to 1 to allow ECMAScript6 shorthand syntax.
 
 		Default value is '0'
+		Deprecated since ver 0.5.0
 
-g:jsdoc_param_description_separator	*g:jsdoc_param_description_separator*
+g:jsdoc_param_description_separator		*g:jsdoc_param_description_separator*
 
 		Characters used to separate @param name and description
 		for more readable descriptions.
@@ -168,8 +168,142 @@ g:jsdoc_custom_args_hook		*g:jsdoc_custom_args_hook*
 		function foo(bar, callback, cb) {
 		}
 
+g:jsdoc_custom_args_regex_only		*g:jsdoc_custom_args_regex_only*
+
+		Match against regexes only when using custom args.
+
+		Default value is 0
+
+		If you use this, you'll have to modify your custom arg keys
+		to be regexes. E.g.
+
+		let g:jsdoc_custom_args_regex_only = 1
+		let g:jsdoc_custom_args_hook = {
+			\   '^\$': {
+			\     'type': '{jQuery}'
+			\   },
+			\   'callback': {
+			\     'type': '{Function}',
+			\     'description': 'Callback function'
+			\   },
+			\   'data': {
+			\     'type': '{Object}'
+			\   },
+			\   '^e$': {
+			\     'type': '{Event}'
+			\   },
+			\   'el$': {
+			\     'type': '{Element}'
+			\   },
+			\   '\(err\|error\)$': {
+			\     'type': '{Error}'
+			\   },
+			\   'handler$': {
+			\     'type': '{Function}'
+			\   },
+			\   '^i$': {
+			\     'type': '{Number}'
+			\   },
+			\   '^_\?is': {
+			\     'type': '{Boolean}'
+			\   },
+			\   'options$': {
+			\     'type': '{Object}'
+			\   },
+			\ }
+
+
+g:jsdoc_type_hook					*g:jsdoc_type_hook*
+		Allow to insert default description depending on the type.
+
+		Default value is '{}'
+>
+		If you set following setting to .vimrc or _vimrc.
+
+		let g:jsdoc_type_hook = {
+		  \ 'object': {
+		  \   'description':'An object containing the following fields',
+		  \   'force_override': 1,
+		  \ },
+		  \ 'function': 'Callback function'
+		  \ }
+		The key of g:jsdoc_type_hook is a variable type.
+		If type is an {object} and force_override is 1,
+		insert g:jsdoc_type_hook['object']['description'] automagically.
+		If forece_override is 0 or not set, JSDoc.vim ask to
+		input description. If you did not enter description,
+		g:jsdoc_type_hook['object']['description'] would insert
+		automagically.
+
+g:jsdoc_enable_es6					*g:jsdoc_enable_es6*
+		Allow to use ECMAScript6's functions.
+		Currently, JSDoc can followings.
+		- Arrow function
+		Default value is '0'
+
+g:jsdoc_tags						*g:jsdoc_tags*
+		Allow use of alternate tags
+		(the ones that support synonyms) per JsDoc
+		documentation.
+
+		Default value is:
+			{
+			  \  'returns': 'returns',
+			  \  'function': 'function',
+			  \  'param': 'param',
+			  \  'class': 'class'
+			\}
+>
+		Can be changed on a per tag basis, for example: let g:jsdoc_tags = {} | let g:jsdoc_tags['param'] = 'arg'
+
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2016-05-03
+- Add ES2015 class.
+- Add @static support.
+
+2016-04-30
+- Add TypeScript support.
+  (thx @faceleg)
+
+2016-04-30
+- vimlint and function generator regex support.
+  See https://github.com/heavenshell/vim-jsdoc/pull/54 details.
+  (thx @davidosomething)
+
+- fix unbalanced parens in arrow regex.
+  See https://github.com/heavenshell/vim-jsdoc/pull/52 details.
+  (thx @davidosomething)
+
+2016-01-23
+- Add full regex mode for jsdoc_custom_args_hook
+  (thx @davidosomething)
+
+2015-12-14
+- Adds support for tag synonyms.
+  (thx @ryanoasis)
+
+2015-09-12
+- Tiny refactor.
+  Change regex declaration local scope to script scope for not eval every
+  method call.
+
+2015-09-06
+- g:jsdoc_allow_shorthand is deprecated. Use g:jsdoc_enable_es6 instead.
+
+2015-09-05
+- Add g:jsdoc_enable_es6.
+  If g:jsdoc_enable_es6 is '1', JSDoc vim can use Arrow function.
+  See https://github.com/heavenshell/vim-jsdoc/labels/enhancement
+
+2015-08-29
+- Add g:jsdoc_type_hook.
+  See https://github.com/heavenshell/vim-jsdoc/issues/36 details.
+
+2015-08-28
+- Add function and array to tab completion
+  (thx @jacoborus)
+
 2015-07-18
 - Remove g:jsdoc_default_mapping.
   See https://github.com/heavenshell/vim-jsdoc/issues/33 details.
