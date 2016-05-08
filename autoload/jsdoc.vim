@@ -52,7 +52,9 @@ call extend(g:jsdoc_tags, s:jsdoc_default_tags, 'keep')
 
 " Return data types for argument type auto completion :)
 function! jsdoc#listDataTypes(A, L, P) abort
-  let l:types = ['boolean', 'null', 'undefined', 'number', 'string', 'symbol', 'object', 'function', 'array']
+  let l:types = ['boolean', 'null', 'undefined', 'number', 'string', 'symbol',
+      \ 'object', 'function', 'array', 'regexp', 'date', 'error', 'map',
+      \ 'promise', 'proxy', 'set', 'typedArray', 'weakmap', 'weakset']
   return join(l:types, "\n")
 endfunction
 
