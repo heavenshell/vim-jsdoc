@@ -51,3 +51,27 @@ and puts your jsdoc above it:
 ```viml
 nmap <silent> <C-l> ?function<cr>:noh<cr><Plug>(jsdoc)
 ```
+
+## TypeScript
+Since ver 0.10.0 jsdoc.vim support TypeScript.
+
+```typescript
+function foo(foo: string): string {
+  return 'foo'
+}
+```
+
+`:JsDoc` would generate following.
+
+```typescript
+/**
+ * foo
+ *
+ * @param {string} foo
+ * @returns {string}
+ */
+function foo(foo: string): string {
+  return 'foo'
+}
+```
+`param` and `returns` set `type` automatically.
