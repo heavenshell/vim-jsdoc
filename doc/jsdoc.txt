@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JSDoc to your JavaScript code.
 
-Version: 0.10.1
+Version: 0.11.0
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -277,8 +277,33 @@ g:jsdoc_tags						*g:jsdoc_tags*
 >
 		Can be changed on a per tag basis, for example: let g:jsdoc_tags = {} | let g:jsdoc_tags['param'] = 'arg'
 
+g:jsdoc_user_defined_tags			*g:jsdoc_user_defined_tags*
+		Allow use of insert custom tags.
+		Default value is '{}'
+
+		If you set following setting to .vimrc or _vimrc.
+>
+		let g:jsdoc_user_defined_tags = {
+		\ '@author': 'Foo',
+		\ '@date': strftime('%Y-%m-%d'),
+		\}
+>
+		/**
+		 * foo
+		 *
+		 * @author Foo
+		 * @date 2016-09-11
+		 * @param {} arg1
+		 * @param {} arg2
+		 */
+		function foo(arg1, arg2) {
+		}
+>
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2016-09-11
+- Add g:jsdoc_user_defined_tags option for insert custom tags.
+
 2016-09-11
 - Fix private, public bug.
 
