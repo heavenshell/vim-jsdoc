@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JSDoc to your JavaScript code.
 
-Version: 0.9.1
+Version: 0.10.1
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -68,6 +68,27 @@ Define function to your code.
     }
   };
 <
+Typed params and return type.
+>
+  function foo(foo: string): string {
+    return 'foo'
+  }
+<
+  Set cursor on `function` line and type following.
+>
+  :JsDoc
+>
+  /**
+   * foo
+   *
+   * @param {string} foo
+   * @returns {string}
+   */
+  function foo(foo: string): string {
+    return 'foo'
+  }
+<
+  param and return type are generate dynamically.
 
 ==============================================================================
 VARIABLES					*jsdoc-vim-variables*
@@ -258,6 +279,12 @@ g:jsdoc_tags						*g:jsdoc_tags*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2016-09-11
+- Fix private, public bug.
+
+2016-08-30
+- Add typed params and return type, such as TypeScript, support
+
 2016-05-09
 - Add more builtin types for autocompletion
   (thx @jacoborus)
