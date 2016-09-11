@@ -1,7 +1,7 @@
 " File: jsdoc.vim
 " Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 " Modifyed: Shinya Ohyanagi <sohyanagi@gmail.com>
-" Version:  0.10.0
+" Version:  0.10.1
 " WebPage:  http://github.com/heavenshell/vim-jsdoc/
 " Description: Generate JSDoc to your JavaScript file.
 " License: BSD, see LICENSE for more details.
@@ -106,13 +106,13 @@ let s:regexs = {
       \   'arrow':                 '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*(\s*\([^)]*\)\s*)\s*=>.*$',
       \   'return_type':           ')\(:\|:\s\|\s*:\s*\)\([a-zA-Z]\+\).*$',
       \   'interface':             '^.\{-}\s*interface\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\).*$',
-      \   'access':                '^\(public\|protected\|private\)',
+      \   'access':                '^\s*\(public\|protected\|private\)',
       \   'implements':            '^.\{-}\s*implements\s*\(\([^{]*\)\).*$',
       \   'extends':               '^.\{-}\s*extends\s*\([^\s*]\)'
       \ }
 
 function! s:trim(value)
-  return substitute(a:value, '\s', '', '')
+  return substitute(a:value, '\s', '', 'g')
 endfunction
 
 " If someday Vim support lambda use lambda.
@@ -123,15 +123,12 @@ function! s:parse_type(args)
       let args = split(arg, ':')
       let val = args[0]
       if val =~# s:regexs['access']
-        "let val = substitute(split(val, s:regexs['access'])[0], '\s', '', '')
         let val = s:trim(split(val, s:regexs['access'])[0])
       endif
 
-      "let type = substitute(args[1], '\s', '', '')
       let type = s:trim(args[1])
       " Split keywaord args.
       if type =~# '='
-        "let type = substitute(split(type, '=')[0], '\s', '', '')
         let type = s:trim(split(type, '=')[0])
       endif
       call add(results, {'val': val, 'type': type})
@@ -387,12 +384,16 @@ function! jsdoc#insert() abort
       " either @access public/private
       " or     @public/private
       let l:access_tag = g:jsdoc_access_descriptions == 1
-           \ ? ' * @access '
-           \ : ' * @'
+            \ ? ' * @access '
+            \ : ' * @'
+      if l:line =~ s:regexs['access']
+        let l:access = s:trim(matchstr(l:line, s:regexs['access']))
+      else
 
-      let l:access = g:jsdoc_underscore_private == 1 && l:funcName[0] ==# '_'
-            \ ? 'private'
-            \ : 'public'
+        let l:access = g:jsdoc_underscore_private == 1 && l:funcName[0] ==# '_'
+              \ ? 'private'
+              \ : 'public'
+      endif
 
       call add(l:lines, l:space . l:access_tag . l:access)
     endif

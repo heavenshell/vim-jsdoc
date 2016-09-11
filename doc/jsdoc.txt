@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JSDoc to your JavaScript code.
 
-Version: 0.10.0
+Version: 0.10.1
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -279,6 +279,9 @@ g:jsdoc_tags						*g:jsdoc_tags*
 
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2016-09-11
+- Fix private, public bug.
+
 2016-08-30
 - Add typed params and return type, such as TypeScript, support
 
