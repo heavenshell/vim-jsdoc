@@ -1,7 +1,7 @@
 " File: jsdoc.vim
 " Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 " Modifyed: Shinya Ohyanagi <sohyanagi@gmail.com>
-" Version:  0.10.1
+" Version:  0.11.0
 " WebPage:  http://github.com/heavenshell/vim-jsdoc/
 " Description: Generate JSDoc to your JavaScript file.
 " License: BSD, see LICENSE for more details.
@@ -27,6 +27,10 @@ let g:jsdoc_custom_args_hook = exists('g:jsdoc_custom_args_hook')
       \ : {}
 let g:jsdoc_type_hook = exists('g:jsdoc_type_hook')
       \ ? g:jsdoc_type_hook
+      \ : {}
+
+let g:jsdoc_user_defined_tags = exists('g:jsdoc_user_defined_tags')
+      \ ? g:jsdoc_user_defined_tags
       \ : {}
 
 " Default tag names
@@ -401,6 +405,11 @@ function! jsdoc#insert() abort
     if l:is_static > 0
       call add(l:lines, l:space . ' * @static')
     endif
+
+    " Add user defined tags.
+    for t in keys(g:jsdoc_user_defined_tags)
+      call add(l:lines, l:space . ' * ' . t . ' ' . g:jsdoc_user_defined_tags[t])
+    endfor
 
     let l:hook = keys(g:jsdoc_custom_args_hook)
     for l:arg in l:args
