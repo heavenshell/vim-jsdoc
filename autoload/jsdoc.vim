@@ -1,7 +1,7 @@
 " File: jsdoc.vim
 " Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 " Modifyed: Shinya Ohyanagi <sohyanagi@gmail.com>
-" Version:  0.11.0
+" Version:  0.11.1
 " WebPage:  http://github.com/heavenshell/vim-jsdoc/
 " Description: Generate JSDoc to your JavaScript file.
 " License: BSD, see LICENSE for more details.
@@ -108,6 +108,7 @@ let s:regexs = {
       \   'shorthand':             '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$',
       \   'static':                '^.\{-}\s*static\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$',
       \   'arrow':                 '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*(\s*\([^)]*\)\s*)\s*=>.*$',
+      \   'arrow_single':          '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*\([^=]*\).*$',
       \   'return_type':           ')\(:\|:\s\|\s*:\s*\)\([a-zA-Z]\+\).*$',
       \   'interface':             '^.\{-}\s*interface\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\).*$',
       \   'access':                '^\s*\(public\|protected\|private\)',
@@ -125,7 +126,7 @@ function! s:parse_type(args)
   for arg in a:args
     if arg =~# ':'
       let args = split(arg, ':')
-      let val = args[0]
+      let val = s:trim(args[0])
       if val =~# s:regexs['access']
         let val = s:trim(split(val, s:regexs['access'])[0])
       endif
@@ -137,7 +138,7 @@ function! s:parse_type(args)
       endif
       call add(results, {'val': val, 'type': type})
     else
-      call add(results, {'val': arg, 'type': ''})
+      call add(results, {'val': s:trim(arg), 'type': ''})
     endif
   endfor
 
@@ -262,6 +263,10 @@ function! s:determine_style(line)
     let l:is_function = 1
     let l:is_named    = 1
     let l:regex       = s:regexs['arrow']
+  elseif g:jsdoc_enable_es6 == 1 && a:line =~ s:regexs['arrow_single']
+    let l:is_function = 1
+    let l:is_named    = 1
+    let l:regex       = s:regexs['arrow_single']
   elseif g:jsdoc_enable_es6 == 1 &&  a:line =~ s:regexs['class_extend']
     let l:is_class    = 1
     let l:is_named    = 1
