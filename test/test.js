@@ -17,6 +17,8 @@ function namedFunctionDeclaration(_a2, err) { }
 
 function* namedGeneratorFunc(data) { }
 
+function defaultParams(arg, arg1 = 'foo', arg2 = 100) {}
+
 const namespace = {};
 
 namespace.x0 = function (e) { }; // anonymous method

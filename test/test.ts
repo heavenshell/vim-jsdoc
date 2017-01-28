@@ -33,6 +33,8 @@ class Bar extends Foo implements IFoo {
   }
   public _bar(): void {
   }
+  public baz(arg1: string = 'foo', arg2: number = 100): void {
+  }
 }
 
 class Baz extends Foo implements IFoo {
