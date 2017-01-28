@@ -14,12 +14,18 @@ function union(): number | string {
 }
 
 interface IFoo {
+  foo?: string
+}
+
+interface InterfaceBar extends IFoo {
 }
 
 class Foo {
 }
 
 class Bar extends Foo implements IFoo {
+  private foo: number
+  bar: string
   constructor(private arg1: string, public arg2: string) {
     super()
   }
