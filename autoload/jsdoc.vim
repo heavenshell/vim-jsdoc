@@ -322,8 +322,6 @@ function! s:parse_keyword_arg(arg)
   if a:arg =~ '='
     let result = printf('[%s]', a:arg)
   endif
-  " TODO Delete this
-  echomsg string(result)
 
   return result
 endfunction
