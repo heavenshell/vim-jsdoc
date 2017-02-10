@@ -1,7 +1,7 @@
 " File: jsdoc.vim
 " Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 " Modifyed: Shinya Ohyanagi <sohyanagi@gmail.com>
-" Version:  0.11.1
+" Version:  0.12.0
 " WebPage:  http://github.com/heavenshell/vim-jsdoc/
 " Description: Generate JSDoc to your JavaScript file.
 " License: BSD, see LICENSE for more details.
@@ -133,15 +133,21 @@ function! s:parse_type(args)
 
       let type = s:trim(args[1])
       " Split keywaord args.
+      let default_arg = ''
       if type =~# '='
-        let type = s:trim(split(type, '=')[0])
+        let values = split(type, '=')
+        let type = s:trim(values[0])
+        let default_arg = s:trim(values[1])
+      endif
+      if default_arg != ''
+        " Default keywaord should be `[keyword=default]`.
+        let val = printf('%s=%s', val, default_arg)
       endif
       call add(results, {'val': val, 'type': type})
     else
       call add(results, {'val': s:trim(arg), 'type': ''})
     endif
   endfor
-
   return results
 endfunction
 
@@ -199,7 +205,8 @@ function! s:hookArgs(lines, space, arg, hook, argType, argDescription) abort
       let l:description = a:argDescription !=# ''
             \ ? g:jsdoc_param_description_separator . a:argDescription
             \ : ''
-      call add(a:lines, a:space . ' * @' . g:jsdoc_tags['param'] . ' ' . l:type . a:arg . l:description)
+      let arg = s:parse_keyword_arg(a:arg)
+      call add(a:lines, a:space . ' * @' . g:jsdoc_tags['param'] . ' ' . l:type . arg . l:description)
 
     else
 
@@ -221,7 +228,8 @@ function! s:hookArgs(lines, space, arg, hook, argType, argDescription) abort
       else
         let l:description = g:jsdoc_param_description_separator . a:argDescription
       endif
-      call add(a:lines, a:space . ' * @' . g:jsdoc_tags['param'] . ' ' . l:type . a:arg . l:description)
+      let arg = s:parse_keyword_arg(a:arg)
+      call add(a:lines, a:space . ' * @' . g:jsdoc_tags['param'] . ' ' . l:type . arg . l:description)
 
     endif
 
@@ -307,6 +315,15 @@ function! s:extract_return_type(line)
   endif
 
   return l:return_type
+endfunction
+
+function! s:parse_keyword_arg(arg)
+  let result = a:arg
+  if a:arg =~ '='
+    let result = printf('[%s]', a:arg)
+  endif
+
+  return result
 endfunction
 
 function! jsdoc#insert() abort
