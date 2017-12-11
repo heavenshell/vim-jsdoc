@@ -100,7 +100,7 @@ endif
 " Currently `(` and `)` are deleted by substitute().
 " @see jsdoc#insert() for where these regexes are matched to the string
 let s:regexs = {
-      \   'function_declaration':  '^.\{-}\s*function\s*\*\?\s\+\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*\**(\s*\([^)]*\)\s*).*$',
+      \   'function_declaration':  '^.\{-}\s*function\s*\*\?\s\+\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$',
       \   'function_expression':   '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*function\s*\**\s*(\s*\([^)]*\)\s*).*$',
       \   'anonymous_function':    '^.\{-}\s*function\s*\**\s*(\s*\([^)]*\)\s*).*$',
       \   'class_extend':          '^.\{-}\s*class\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)*\s*extends\s*\(\([^{]*\)\).*$',
@@ -113,7 +113,7 @@ let s:regexs = {
       \   'interface':             '^.\{-}\s*interface\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\).*$',
       \   'access':                '^\s*\(public\|protected\|private\)',
       \   'implements':            '^.\{-}\s*implements\s*\(\([^{]*\)\).*$',
-      \   'extends':               '^.\{-}\s*extends\s*\([^\s*]\)'
+      \   'extends':               '^.\{-}\s*extends\s*\([^\s*]\)',
       \ }
 
 function! s:trim(value)
@@ -327,7 +327,16 @@ function! s:parse_keyword_arg(arg)
 endfunction
 
 function! jsdoc#insert() abort
-  let l:line = getline('.')
+  let startpos = line('.')
+  " Move cursor to the head.
+  silent! execute 'normal! ^'
+  if match(getline('.'), '\w$') != -1
+    let l:line = getline('.')
+  else
+    let insertpos = search('{\|)\s*{\|){\|=>\s*{')
+    let l:line = join(getline(startpos, insertpos))
+  endif
+
   let l:indentCharSpace = ' '
   let l:indentCharTab   = '	'
   let l:autoexpandtab   = &l:expandtab
@@ -338,13 +347,13 @@ function! jsdoc#insert() abort
     let l:indentChar  = l:indentCharTab
   elseif l:autoexpandtab == 1 " expandtab
     " spaces
-    let l:indent      = indent('.')
+    let l:indent      = indent(startpos)
     let l:indentChar  = l:indentCharSpace
   endif
 
   let l:space = repeat(l:indentChar, l:indent)
 
-  " Determine function defintion style
+  " Determine function definition style
   let l:style        = s:determine_style(l:line)
   let l:is_class     = l:style['is_class']
   let l:is_function  = l:style['is_function']
@@ -367,7 +376,6 @@ function! jsdoc#insert() abort
   let l:implements = ''
   let l:return_type = ''
   if l:is_function || l:is_class || l:is_interface
-
     " Parse function definition
     " @FIXME: Does not work if function is split over several lines...
     " e.g.
@@ -502,9 +510,8 @@ function! jsdoc#insert() abort
   let l:paste = &g:paste
   let &g:paste = 1
 
-  call append(line('.') - 1, l:lines)
-
-  let l:pos = line('.') - (len(l:lines) - 1)
+  call append(startpos - 1, l:lines)
+  let l:pos = startpos + 1
 
   silent! execute 'normal! ' . l:pos . 'G$'
   if l:desc ==# '' && l:funcName !=# ''

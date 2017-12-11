@@ -1,0 +1,72 @@
+# vim:set et sw=4 ts=4 tw=79:
+Given typescript (typed):
+  function foo(foo: string = 'foo', bar: number = 1): string {
+    return 'foo'
+  }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @param foo='foo'
+   * @param bar=1
+   * @returns {string}
+   */
+  function foo(foo: string = 'foo', bar: number = 1): string {
+    return 'foo'
+  }
+
+Given typescript (union):
+  function foo(): number | string {
+    return 'foo'
+  }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @returns {number | string}
+   */
+  function foo(): number | string {
+    return 'foo'
+  }
+
+Given typescript (interface):
+  interface IFoo {
+    foo?: string
+  }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * IFoo
+   */
+  interface IFoo {
+    foo?: string
+  }
+
+Given typescript (implements):
+  class Bar extends Foo implements IFoo {
+  }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * Bar
+   *
+   * @implements {IFoo}
+   * @extends {Foo}
+   */
+  class Bar extends Foo implements IFoo {
+  }
+
