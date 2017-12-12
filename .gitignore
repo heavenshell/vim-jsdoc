@@ -1,4 +1,4 @@
-.swp
+*.swp
 *~
 .DS_Store
 tags
