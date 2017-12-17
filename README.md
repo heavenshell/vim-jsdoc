@@ -1,6 +1,8 @@
 jsdoc.vim
 =========
 
+[![Build Status](https://travis-ci.org/heavenshell/vim-jsdoc.svg?branch=master)](https://travis-ci.org/heavenshell/vim-jsdoc)
+
 jsdoc.vim generates [JSDoc](http://usejsdoc.org/) block comments based on a function signature.
 
 ![Move cursor to function keyword line, then type `:JsDoc`. If g:jsdoc_allow_input_prompt is enabled, prompt input description, argument type, parameter description. If g:jsdoc_allow_input_prompt is disabled, insert JsDoc automatically.](https://github.com/heavenshell/vim-jsdoc/wiki/images/vim-jsdoc-screencast-preview.gif)
