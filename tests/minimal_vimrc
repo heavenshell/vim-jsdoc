@@ -1,0 +1,16 @@
+" Minimal vimrc to run tests
+" --------------------------
+set nocompatible
+filetype off
+" Clear all rtp
+set rtp=$VIMRUNTIME
+
+" Add vader.vim to rtp
+set rtp+=./vader.vim
+
+" Add pydocstring folder into rtp
+set rtp+=../
+filetype plugin indent on
+
+let g:jsdoc_enable_es6 = 1
+set tabstop=2 shiftwidth=2 softtabstop=2 expandtab

@@ -1,0 +1,78 @@
+# vim:set et sw=4 ts=4 tw=79:
+Given javascript (typed):
+  function foo(foo: string = 'foo', bar: number = 1): string {
+    return 'foo'
+  }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @param {string} foo='foo'
+   * @param {number} bar=1
+   * @returns {string}
+   */
+  function foo(foo: string = 'foo', bar: number = 1): string {
+    return 'foo'
+  }
+
+Given javascript (union):
+  function foo(): number | string {
+    return 'foo'
+  }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @returns {number | string}
+   */
+  function foo(): number | string {
+    return 'foo'
+  }
+
+Given javascript (interface):
+  type Props = {
+    foo?: string
+  }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * Props
+   */
+  type Props = {
+    foo?: string
+  }
+
+Given javascript (implements):
+  class Bar extends Foo implements IFoo {
+  }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * Bar
+   *
+   * @implements {IFoo}
+   * @extends {Foo}
+   */
+  class Bar extends Foo implements IFoo {
+  }
+
+Given javascript (scope arguments):
+  class Bar extends Foo<Props> {
+    constructor(arg1: string, arg2: string) {
+      super()
+    }
+  }

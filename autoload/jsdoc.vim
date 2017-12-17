@@ -100,7 +100,7 @@ endif
 " Currently `(` and `)` are deleted by substitute().
 " @see jsdoc#insert() for where these regexes are matched to the string
 let s:regexs = {
-      \   'function_declaration':  '^.\{-}\s*function\s*\*\?\s\+\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*\**(\s*\([^)]*\)\s*).*$',
+      \   'function_declaration':  '^.\{-}\s*function\s*\*\?\s\+\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$',
       \   'function_expression':   '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*function\s*\**\s*(\s*\([^)]*\)\s*).*$',
       \   'anonymous_function':    '^.\{-}\s*function\s*\**\s*(\s*\([^)]*\)\s*).*$',
       \   'class_extend':          '^.\{-}\s*class\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)*\s*extends\s*\(\([^{]*\)\).*$',
@@ -111,9 +111,10 @@ let s:regexs = {
       \   'arrow_single':          '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*[:=]\s*\([^=]*\).*$',
       \   'return_type':           ')\(:\|:\s\|\s*:\s*\)\([a-zA-Z]\+\).*$',
       \   'interface':             '^.\{-}\s*interface\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\).*$',
+      \   'flow_type':             '^.\{-}\s*type\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\).*$',
       \   'access':                '^\s*\(public\|protected\|private\)',
       \   'implements':            '^.\{-}\s*implements\s*\(\([^{]*\)\).*$',
-      \   'extends':               '^.\{-}\s*extends\s*\([^\s*]\)'
+      \   'extends':               '^.\{-}\s*extends\s*\([^\s*]\)',
       \ }
 
 function! s:trim(value)
@@ -181,7 +182,12 @@ endfunction
 function! s:hookArgs(lines, space, arg, hook, argType, argDescription) abort
   " Hook function signature's args for insert as default value.
   if g:jsdoc_custom_args_hook == {}
-    call add(a:lines, a:space . ' * @' . g:jsdoc_tags['param'] . ' ' . a:arg)
+    if a:argType == ''
+      let param = printf(' * @%s %s', g:jsdoc_tags['param'], a:arg)
+    else
+      let param = printf(' * @%s {%s} %s', g:jsdoc_tags['param'], a:argType, a:arg)
+    endif
+    call add(a:lines, a:space . param)
   else
 
     let l:matchedArg = ''
@@ -245,44 +251,49 @@ function! s:determine_style(line)
   let l:is_named     = 0
   let l:is_static    = 0
   let l:is_interface = 0
+  let l:is_type      = 0
   let l:regex        = 0
 
   if a:line =~ s:regexs['function_declaration']
-    let l:is_function = 1
-    let l:is_named    = 1
-    let l:regex       = s:regexs['function_declaration']
+    let l:is_function  = 1
+    let l:is_named     = 1
+    let l:regex        = s:regexs['function_declaration']
   elseif a:line =~ s:regexs['function_expression']
-    let l:is_function = 1
-    let l:is_named    = 1
-    let l:regex       = s:regexs['function_expression']
+    let l:is_function  = 1
+    let l:is_named     = 1
+    let l:regex        = s:regexs['function_expression']
   elseif a:line =~ s:regexs['anonymous_function']
-    let l:is_function = 1
-    let l:regex       = s:regexs['anonymous_function']
+    let l:is_function  = 1
+    let l:regex        = s:regexs['anonymous_function']
   elseif g:jsdoc_enable_es6 == 1 && a:line =~ s:regexs['static']
-    let l:is_function = 1
-    let l:is_named    = 1
-    let l:is_static   = 1
-    let l:regex       = s:regexs['static']
+    let l:is_function  = 1
+    let l:is_named     = 1
+    let l:is_static    = 1
+    let l:regex        = s:regexs['static']
   elseif (g:jsdoc_allow_shorthand == 1 || g:jsdoc_enable_es6 == 1) && a:line =~ s:regexs['shorthand']
-    let l:is_function = 1
-    let l:is_named    = 1
-    let l:regex       = s:regexs['shorthand']
+    let l:is_function  = 1
+    let l:is_named     = 1
+    let l:regex        = s:regexs['shorthand']
   elseif g:jsdoc_enable_es6 == 1 && a:line =~ s:regexs['arrow']
-    let l:is_function = 1
-    let l:is_named    = 1
-    let l:regex       = s:regexs['arrow']
+    let l:is_function  = 1
+    let l:is_named     = 1
+    let l:regex        = s:regexs['arrow']
+  elseif a:line =~ s:regexs['flow_type']
+    let l:is_type      = 1
+    let l:is_named     = 1
+    let l:regex        = s:regexs['flow_type']
   elseif g:jsdoc_enable_es6 == 1 && a:line =~ s:regexs['arrow_single']
-    let l:is_function = 1
-    let l:is_named    = 1
-    let l:regex       = s:regexs['arrow_single']
+    let l:is_function  = 1
+    let l:is_named     = 1
+    let l:regex        = s:regexs['arrow_single']
   elseif g:jsdoc_enable_es6 == 1 &&  a:line =~ s:regexs['class_extend']
-    let l:is_class    = 1
-    let l:is_named    = 1
-    let l:regex       = s:regexs['class_extend']
+    let l:is_class     = 1
+    let l:is_named     = 1
+    let l:regex        = s:regexs['class_extend']
   elseif g:jsdoc_enable_es6 == 1 && a:line =~ s:regexs['class']
-    let l:is_class    = 1
-    let l:is_named    = 1
-    let l:regex       = s:regexs['class']
+    let l:is_class     = 1
+    let l:is_named     = 1
+    let l:regex        = s:regexs['class']
   elseif a:line =~ s:regexs['interface']
     let l:is_interface = 1
     let l:is_named     = 1
@@ -295,6 +306,7 @@ function! s:determine_style(line)
         \ 'is_named':     l:is_named,
         \ 'is_static':    l:is_static,
         \ 'is_interface': l:is_interface,
+        \ 'is_type':      l:is_type,
         \ 'regex':        l:regex,
         \ }
 endfunction
@@ -327,7 +339,16 @@ function! s:parse_keyword_arg(arg)
 endfunction
 
 function! jsdoc#insert() abort
-  let l:line = getline('.')
+  let startpos = line('.')
+  " Move cursor to the head.
+  silent! execute 'normal! ^'
+  if match(getline('.'), '\w$') != -1
+    let l:line = getline('.')
+  else
+    let insertpos = search('{\|)\s*{\|){\|=>\s*{')
+    let l:line = join(getline(startpos, insertpos))
+  endif
+
   let l:indentCharSpace = ' '
   let l:indentCharTab   = '	'
   let l:autoexpandtab   = &l:expandtab
@@ -338,19 +359,20 @@ function! jsdoc#insert() abort
     let l:indentChar  = l:indentCharTab
   elseif l:autoexpandtab == 1 " expandtab
     " spaces
-    let l:indent      = indent('.')
+    let l:indent      = indent(startpos)
     let l:indentChar  = l:indentCharSpace
   endif
 
   let l:space = repeat(l:indentChar, l:indent)
 
-  " Determine function defintion style
+  " Determine function definition style
   let l:style        = s:determine_style(l:line)
   let l:is_class     = l:style['is_class']
   let l:is_function  = l:style['is_function']
   let l:is_named     = l:style['is_named']
   let l:is_static    = l:style['is_static']
   let l:is_interface = l:style['is_interface']
+  let l:is_type      = l:style['is_type']
   let l:regex        = l:style['regex']
 
   let l:lines = []
@@ -358,7 +380,7 @@ function! jsdoc#insert() abort
   call add(l:lines, l:space . '/**')
   call add(l:lines, l:space . ' * ' . l:desc)
   " Class and interface generate only typed name.
-  if !l:is_class && !l:is_interface
+  if !l:is_class && !l:is_interface && !l:is_type
     call add(l:lines, l:space . ' *')
   endif
 
@@ -366,16 +388,8 @@ function! jsdoc#insert() abort
   let l:parent_class = ''
   let l:implements = ''
   let l:return_type = ''
-  if l:is_function || l:is_class || l:is_interface
-
+  if l:is_function || l:is_class || l:is_interface || l:is_type
     " Parse function definition
-    " @FIXME: Does not work if function is split over several lines...
-    " e.g.
-    " ```
-    " function name(
-    "   arg1
-    "   arg2
-    " ) { }
     let l:argString = ''
     if l:is_named
       let l:funcName = substitute(l:line, l:regex, '\1', 'g')
@@ -474,6 +488,7 @@ function! jsdoc#insert() abort
 
       call add(l:lines, l:space . ' * @extends ' . '{' . l:parent_class . '}')
     endif
+  elseif l:is_type
   elseif g:jsdoc_return == 1
     if g:jsdoc_allow_input_prompt == 1
       let s:candidate_type = l:return_type
@@ -502,9 +517,8 @@ function! jsdoc#insert() abort
   let l:paste = &g:paste
   let &g:paste = 1
 
-  call append(line('.') - 1, l:lines)
-
-  let l:pos = line('.') - (len(l:lines) - 1)
+  call append(startpos - 1, l:lines)
+  let l:pos = startpos + 1
 
   silent! execute 'normal! ' . l:pos . 'G$'
   if l:desc ==# '' && l:funcName !=# ''

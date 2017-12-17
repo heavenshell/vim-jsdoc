@@ -1,0 +1,121 @@
+# vim:set et sw=4 ts=4 tw=79:
+Given typescript (typed):
+  function foo(foo: string = 'foo', bar: number = 1): string {
+    return 'foo'
+  }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @param {string} foo='foo'
+   * @param {number} bar=1
+   * @returns {string}
+   */
+  function foo(foo: string = 'foo', bar: number = 1): string {
+    return 'foo'
+  }
+
+Given typescript (union):
+  function foo(): number | string {
+    return 'foo'
+  }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @returns {number | string}
+   */
+  function foo(): number | string {
+    return 'foo'
+  }
+
+Given typescript (interface):
+  interface IFoo {
+    foo?: string
+  }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * IFoo
+   */
+  interface IFoo {
+    foo?: string
+  }
+
+Given typescript (implements):
+  class Bar extends Foo implements IFoo {
+  }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * Bar
+   *
+   * @implements {IFoo}
+   * @extends {Foo}
+   */
+  class Bar extends Foo implements IFoo {
+  }
+
+Given typescript (scope arguments):
+  class Bar extends Foo implements IFoo {
+    constructor(private arg1: string, public arg2: string) {
+      super()
+    }
+  }
+
+Execute:
+  call search('constructor')
+  JsDoc
+
+Expect javascript:
+  class Bar extends Foo implements IFoo {
+    /**
+     * constructor
+     *
+     * @param {string} arg1
+     * @param {string} arg2
+     * @returns {undefined}
+     */
+    constructor(private arg1: string, public arg2: string) {
+      super()
+    }
+  }
+
+Given typescript (private method):
+  class Bar extends Foo implements IFoo {
+    private foo(arg1: string, arg2: number = 0): void {
+    }
+  }
+
+Execute:
+  let jsdoc_access_descriptions=1
+  call search('foo')
+  JsDoc
+
+Expect javascript:
+  class Bar extends Foo implements IFoo {
+    /**
+     * foo
+     *
+     * @access private
+     * @param {string} arg1
+     * @param {number} arg2=0
+     * @returns {void}
+     */
+    private foo(arg1: string, arg2: number = 0): void {
+    }
+  }

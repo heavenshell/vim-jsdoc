@@ -1,0 +1,330 @@
+# vim:set et sw=4 ts=4 tw=79:
+Given javascript (named function with no arg):
+  function foo() { }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @returns {undefined}
+   */
+  function foo() { }
+
+Given javascript (named function with arg):
+  function foo(arg) { }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @param arg
+   * @returns {undefined}
+   */
+  function foo(arg) { }
+
+Given javascript (named function with args):
+  function foo(arg1, arg2) { }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @param arg1
+   * @param arg2
+   * @returns {undefined}
+   */
+  function foo(arg1, arg2) { }
+
+Given javascript (named generator function with args):
+  function* foo(arg1, arg2) { }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @param arg1
+   * @param arg2
+   * @returns {undefined}
+   */
+  function* foo(arg1, arg2) { }
+
+Given javascript (anonymous function expression):
+  const foo = function() { }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @returns {undefined}
+   */
+  const foo = function() { }
+
+Given javascript (anonymous function expression):
+  const foo = function(arg1, arg2) { }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @param arg1
+   * @param arg2
+   * @returns {undefined}
+   */
+  const foo = function(arg1, arg2) { }
+
+Given javascript (anonymous function generator expression):
+  const foo = function* (arg1, arg2) { }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @param arg1
+   * @param arg2
+   * @returns {undefined}
+   */
+  const foo = function* (arg1, arg2) { }
+
+Given javascript (named function generator expression):
+  const foo = function foo(arg1, arg2) { }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @param arg1
+   * @param arg2
+   * @returns {undefined}
+   */
+  const foo = function foo(arg1, arg2) { }
+
+Given javascript (arrow function):
+  const foo = arg1 => { }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @param arg1
+   * @returns {undefined}
+   */
+  const foo = arg1 => { }
+
+Given javascript (arrow function with args):
+  const foo = (arg1, arg2) => { }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @param arg1
+   * @param arg2
+   * @returns {undefined}
+   */
+  const foo = (arg1, arg2) => { }
+
+Given javascript (keyword arguments):
+  function foo(arg, arg1 = 'foo', arg2 = 100) {}
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @param arg
+   * @param arg1='foo'
+   * @param arg2=100
+   * @returns {undefined}
+   */
+  function foo(arg, arg1 = 'foo', arg2 = 100) {}
+
+Given javascript (export default function):
+  export default function (arg1, arg2) {}
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * 
+   *
+   * @param arg1
+   * @param arg2
+   * @returns {undefined}
+   */
+  export default function (arg1, arg2) {}
+
+
+Given javascript (namespace):
+  namespace.a = function (e) { }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * a
+   *
+   * @param e
+   * @returns {undefined}
+   */
+  namespace.a = function (e) { }
+
+Given javascript (class):
+  class Foo {}
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * Foo
+   */
+  class Foo {}
+
+Given javascript (extend class):
+  class Foo extends Bar {}
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * Foo
+   *
+   * @extends {Bar}
+   */
+  class Foo extends Bar {}
+
+Given javascript (method):
+  class Foo {
+    bar () {
+      console.log('foo')
+    }
+  }
+
+Execute:
+  :call search('bar')
+  JsDoc
+
+Expect javascript:
+  class Foo {
+    /**
+     * bar
+     *
+     * @returns {undefined}
+     */
+    bar () {
+      console.log('foo')
+    }
+  }
+
+Given javascript (method with args):
+  class Foo {
+    bar (arg1, arg2) {
+      console.log('foo')
+    }
+  }
+
+Execute:
+  :call search('bar')
+  JsDoc
+
+Expect javascript:
+  class Foo {
+    /**
+     * bar
+     *
+     * @param arg1
+     * @param arg2
+     * @returns {undefined}
+     */
+    bar (arg1, arg2) {
+      console.log('foo')
+    }
+  }
+
+Given javascript (static method):
+  class Foo {
+    static bar (arg1, arg2) {
+      console.log('foo')
+    }
+  }
+
+Execute:
+  :call search('bar')
+  JsDoc
+
+Expect javascript:
+  class Foo {
+    /**
+     * bar
+     *
+     * @static
+     * @param arg1
+     * @param arg2
+     * @returns {undefined}
+     */
+    static bar (arg1, arg2) {
+      console.log('foo')
+    }
+  }
+
+Given javascript (multi-line):
+  function foo (
+    arg1,
+    arg2,
+    arg3
+  ) {
+  }
+
+Execute:
+  JsDoc
+
+Expect javascript:
+  /**
+   * foo
+   *
+   * @param arg1
+   * @param arg2
+   * @param arg3
+   * @returns {undefined}
+   */
+  function foo (
+    arg1,
+    arg2,
+    arg3
+  ) {
+  }

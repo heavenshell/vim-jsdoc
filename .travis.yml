@@ -1,12 +1,10 @@
 sudo: required
 dist: xenial
 language: vim
-node_js: stable
 
 install:
   - git clone https://github.com/junegunn/vader.vim.git tests/vader.vim
   - git clone https://github.com/vim/vim /tmp/vim
-  - mkdir ~/bin
   - cd /tmp/vim
   - sudo apt-get install -y gettext libncurses5-dev libacl1-dev libgpm-dev
   - ./configure --with-features=huge --enable-fail-if-missing --enable-pythoninterp --prefix=$HOME/bin/vim
