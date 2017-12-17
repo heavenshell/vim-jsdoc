@@ -1,12 +1,9 @@
 " Minimal vimrc to run tests
 " --------------------------
-
 set nocompatible
-set nu
 filetype off
 " Clear all rtp
 set rtp=$VIMRUNTIME
-
 
 " Add vader.vim to rtp
 set rtp+=./vader.vim

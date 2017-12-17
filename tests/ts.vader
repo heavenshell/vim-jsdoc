@@ -11,8 +11,8 @@ Expect javascript:
   /**
    * foo
    *
-   * @param foo='foo'
-   * @param bar=1
+   * @param {string} foo='foo'
+   * @param {number} bar=1
    * @returns {string}
    */
   function foo(foo: string = 'foo', bar: number = 1): string {
@@ -70,3 +70,52 @@ Expect javascript:
   class Bar extends Foo implements IFoo {
   }
 
+Given typescript (scope arguments):
+  class Bar extends Foo implements IFoo {
+    constructor(private arg1: string, public arg2: string) {
+      super()
+    }
+  }
+
+Execute:
+  call search('constructor')
+  JsDoc
+
+Expect javascript:
+  class Bar extends Foo implements IFoo {
+    /**
+     * constructor
+     *
+     * @param {string} arg1
+     * @param {string} arg2
+     * @returns {undefined}
+     */
+    constructor(private arg1: string, public arg2: string) {
+      super()
+    }
+  }
+
+Given typescript (private method):
+  class Bar extends Foo implements IFoo {
+    private foo(arg1: string, arg2: number = 0): void {
+    }
+  }
+
+Execute:
+  let jsdoc_access_descriptions=1
+  call search('foo')
+  JsDoc
+
+Expect javascript:
+  class Bar extends Foo implements IFoo {
+    /**
+     * foo
+     *
+     * @access private
+     * @param {string} arg1
+     * @param {number} arg2=0
+     * @returns {void}
+     */
+    private foo(arg1: string, arg2: number = 0): void {
+    }
+  }
