@@ -459,7 +459,11 @@ function! jsdoc#insert() abort
         if l:arg['type'] != ''
           let s:candidate_type = l:arg['type']
         endif
-        let l:argType = input('Argument "' . l:arg['val'] . '" type: ', '', 'custom,jsdoc#listDataTypes')
+        if s:candidate_type == ''
+            let l:argType = input('Argument "' . l:arg['val'] . '" type: ', '', 'custom,jsdoc#listDataTypes')
+        else
+            let l:argType = s:candidate_type
+        endif
         redraw | echo ''
         let l:argDescription = s:build_description(l:argType, l:arg)
         if g:jsdoc_custom_args_hook == {}
