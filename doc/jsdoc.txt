@@ -9,10 +9,10 @@ License: BSD, see LICENSE for more details.
 ==============================================================================
 CONTENTS					*jsdoc-vim-contents*
 
-Introduction		|jsdoc-introduction|
-Install			|jsdoc-install|
-Tutorial		|jsdoc-tutorial|
-Variables		|jsdoc-variables|
+Introduction		|jsdoc-vim-introduction|
+Install			|jsdoc-vim-install|
+Tutorial		|jsdoc-vim-tutorial|
+Variables		|jsdoc-vim-variables|
 
 ==============================================================================
 INTRODUCTION					*jsdoc-vim-introduction*
