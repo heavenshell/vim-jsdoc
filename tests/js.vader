@@ -1,15 +1,18 @@
 # vim:set et sw=4 ts=4 tw=79:
+Execute (Setup template path):
+    Save g:jsdoc_templates_path
+    let g:jsdoc_templates_path = ''
+
 Given javascript (named function with no arg):
   function foo() { }
 
 Execute:
   JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * foo
-   *
-   * @returns {undefined}
+   * foo.
    */
   function foo() { }
 
@@ -17,14 +20,14 @@ Given javascript (named function with arg):
   function foo(arg) { }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * foo
+   * foo.
    *
-   * @param arg
-   * @returns {undefined}
+   * @param {} arg
    */
   function foo(arg) { }
 
@@ -32,15 +35,15 @@ Given javascript (named function with args):
   function foo(arg1, arg2) { }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * foo
+   * foo.
    *
-   * @param arg1
-   * @param arg2
-   * @returns {undefined}
+   * @param {} arg1
+   * @param {} arg2
    */
   function foo(arg1, arg2) { }
 
@@ -48,15 +51,15 @@ Given javascript (named generator function with args):
   function* foo(arg1, arg2) { }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * foo
+   * foo.
    *
-   * @param arg1
-   * @param arg2
-   * @returns {undefined}
+   * @param {} arg1
+   * @param {} arg2
    */
   function* foo(arg1, arg2) { }
 
@@ -64,13 +67,12 @@ Given javascript (anonymous function expression):
   const foo = function() { }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * foo
-   *
-   * @returns {undefined}
+   * foo.
    */
   const foo = function() { }
 
@@ -78,15 +80,15 @@ Given javascript (anonymous function expression):
   const foo = function(arg1, arg2) { }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * foo
+   * foo.
    *
-   * @param arg1
-   * @param arg2
-   * @returns {undefined}
+   * @param {} arg1
+   * @param {} arg2
    */
   const foo = function(arg1, arg2) { }
 
@@ -94,15 +96,15 @@ Given javascript (anonymous function generator expression):
   const foo = function* (arg1, arg2) { }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * foo
+   * foo.
    *
-   * @param arg1
-   * @param arg2
-   * @returns {undefined}
+   * @param {} arg1
+   * @param {} arg2
    */
   const foo = function* (arg1, arg2) { }
 
@@ -110,15 +112,15 @@ Given javascript (named function generator expression):
   const foo = function foo(arg1, arg2) { }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * foo
+   * foo.
    *
-   * @param arg1
-   * @param arg2
-   * @returns {undefined}
+   * @param {} arg1
+   * @param {} arg2
    */
   const foo = function foo(arg1, arg2) { }
 
@@ -126,14 +128,14 @@ Given javascript (arrow function):
   const foo = arg1 => { }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * foo
+   * foo.
    *
-   * @param arg1
-   * @returns {undefined}
+   * @param {} arg1
    */
   const foo = arg1 => { }
 
@@ -141,15 +143,15 @@ Given javascript (arrow function with args):
   const foo = (arg1, arg2) => { }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * foo
+   * foo.
    *
-   * @param arg1
-   * @param arg2
-   * @returns {undefined}
+   * @param {} arg1
+   * @param {} arg2
    */
   const foo = (arg1, arg2) => { }
 
@@ -157,16 +159,16 @@ Given javascript (keyword arguments):
   function foo(arg, arg1 = 'foo', arg2 = 100) {}
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * foo
+   * foo.
    *
-   * @param arg
-   * @param arg1='foo'
-   * @param arg2=100
-   * @returns {undefined}
+   * @param {} arg
+   * @param {} arg1
+   * @param {} arg2
    */
   function foo(arg, arg1 = 'foo', arg2 = 100) {}
 
@@ -174,15 +176,15 @@ Given javascript (export default function):
   export default function (arg1, arg2) {}
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * 
+   * function.
    *
-   * @param arg1
-   * @param arg2
-   * @returns {undefined}
+   * @param {} arg1
+   * @param {} arg2
    */
   export default function (arg1, arg2) {}
 
@@ -191,14 +193,14 @@ Given javascript (namespace):
   namespace.a = function (e) { }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * a
+   * namespace.a.
    *
-   * @param e
-   * @returns {undefined}
+   * @param {} e
    */
   namespace.a = function (e) { }
 
@@ -206,11 +208,12 @@ Given javascript (class):
   class Foo {}
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * Foo
+   * Foo.
    */
   class Foo {}
 
@@ -218,11 +221,12 @@ Given javascript (extend class):
   class Foo extends Bar {}
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * Foo
+   * Foo.
    *
    * @extends {Bar}
    */
@@ -237,14 +241,13 @@ Given javascript (method):
 
 Execute:
   :call search('bar')
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   class Foo {
     /**
-     * bar
-     *
-     * @returns {undefined}
+     * bar.
      */
     bar () {
       console.log('foo')
@@ -260,16 +263,16 @@ Given javascript (method with args):
 
 Execute:
   :call search('bar')
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   class Foo {
     /**
-     * bar
+     * bar.
      *
-     * @param arg1
-     * @param arg2
-     * @returns {undefined}
+     * @param {} arg1
+     * @param {} arg2
      */
     bar (arg1, arg2) {
       console.log('foo')
@@ -285,46 +288,18 @@ Given javascript (static method):
 
 Execute:
   :call search('bar')
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   class Foo {
     /**
-     * bar
+     * bar.
      *
-     * @static
-     * @param arg1
-     * @param arg2
-     * @returns {undefined}
+     * @param {} arg1
+     * @param {} arg2
      */
     static bar (arg1, arg2) {
       console.log('foo')
     }
-  }
-
-Given javascript (multi-line):
-  function foo (
-    arg1,
-    arg2,
-    arg3
-  ) {
-  }
-
-Execute:
-  JsDoc
-
-Expect javascript:
-  /**
-   * foo
-   *
-   * @param arg1
-   * @param arg2
-   * @param arg3
-   * @returns {undefined}
-   */
-  function foo (
-    arg1,
-    arg2,
-    arg3
-  ) {
   }

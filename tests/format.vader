@@ -1,0 +1,43 @@
+# vim:set et sw=4 ts=4 tw=79:
+Execute (Setup template path):
+    Save g:jsdoc_templates_path
+    let g:jsdoc_templates_path = ''
+
+Given typescript (typed):
+  class Foo {
+    props: Props
+    constructor(arg1: string, arg2: number) {
+    }
+  }
+  const foo = (arg1: string, arg2: number): string => {}
+
+Execute:
+  :JsDocFormat
+  :sleep 1
+
+Expect javascript:
+  /**
+   * Foo.
+   */
+  class Foo {
+    /**
+     * @type {Props}
+     */
+    props: Props
+    /**
+     * constructor.
+     *
+     * @param {string} arg1
+     * @param {number} arg2
+     */
+    constructor(arg1: string, arg2: number) {
+    }
+  }
+  /**
+   * foo.
+   *
+   * @param {string} arg1
+   * @param {number} arg2
+   * @returns {string}
+   */
+  const foo = (arg1: string, arg2: number): string => {}

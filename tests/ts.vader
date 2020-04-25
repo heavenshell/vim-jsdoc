@@ -1,18 +1,23 @@
 # vim:set et sw=4 ts=4 tw=79:
+Execute (Setup template path):
+    Save g:jsdoc_templates_path
+    let g:jsdoc_templates_path = ''
+
 Given typescript (typed):
   function foo(foo: string = 'foo', bar: number = 1): string {
     return 'foo'
   }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * foo
+   * foo.
    *
-   * @param {string} foo='foo'
-   * @param {number} bar=1
+   * @param {string} foo
+   * @param {number} bar
    * @returns {string}
    */
   function foo(foo: string = 'foo', bar: number = 1): string {
@@ -25,11 +30,12 @@ Given typescript (union):
   }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * foo
+   * foo.
    *
    * @returns {number | string}
    */
@@ -43,11 +49,12 @@ Given typescript (interface):
   }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * IFoo
+   * IFoo.
    */
   interface IFoo {
     foo?: string
@@ -58,14 +65,15 @@ Given typescript (implements):
   }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * Bar
+   * Bar.
    *
-   * @implements {IFoo}
    * @extends {Foo}
+   * @implements {IFoo}
    */
   class Bar extends Foo implements IFoo {
   }
@@ -78,17 +86,17 @@ Given typescript (scope arguments):
   }
 
 Execute:
-  call search('constructor')
-  JsDoc
+  :call search('constructor')
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   class Bar extends Foo implements IFoo {
     /**
-     * constructor
+     * constructor.
      *
      * @param {string} arg1
      * @param {string} arg2
-     * @returns {undefined}
      */
     constructor(private arg1: string, public arg2: string) {
       super()
@@ -102,18 +110,17 @@ Given typescript (private method):
   }
 
 Execute:
-  let jsdoc_access_descriptions=1
-  call search('foo')
-  JsDoc
+  :call search('foo')
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   class Bar extends Foo implements IFoo {
     /**
-     * foo
+     * foo.
      *
-     * @access private
      * @param {string} arg1
-     * @param {number} arg2=0
+     * @param {number} arg2
      * @returns {void}
      */
     private foo(arg1: string, arg2: number = 0): void {

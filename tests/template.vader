@@ -1,0 +1,25 @@
+# vim:set et sw=4 ts=4 tw=79:
+Execute (Setup template path):
+    Save g:jsdoc_templates_path
+    let g:jsdoc_templates_path = '../examples/snippet_template.js'
+
+Given typescript (typed):
+  function foo(foo: string = 'foo', bar: number = 1): string {
+    return 'foo'
+  }
+
+Execute:
+  :JsDoc
+  :sleep 1
+
+Expect javascript:
+  /**
+   * <`0:name`>
+   *
+   * @param {string} foo - <`0:description`>
+   * @param {number} bar - <`1:description`>
+   * @returns {string} <`0:return value`>
+   */
+  function foo(foo: string = 'foo', bar: number = 1): string {
+    return 'foo'
+  }
