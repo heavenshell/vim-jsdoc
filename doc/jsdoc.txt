@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JSDoc to your JavaScript code.
 
-Version: 0.12.0
+Version: 1.0.0
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Modifyed: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -301,6 +301,9 @@ g:jsdoc_user_defined_tags			*g:jsdoc_user_defined_tags*
 >
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2020-04-25
+- Freeze 1.0.0
+
 2017-01-28
 - Fix an optional parameter and default value.
   see https://github.com/heavenshell/vim-jsdoc/issues/64 details.
