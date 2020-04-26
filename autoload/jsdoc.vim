@@ -153,6 +153,7 @@ function! jsdoc#insert(...) abort
       let lines = printf("%s\n%s", 'class ForJsDocDummyClass {', lines)
     endif
   endif
+  let s:results = []
 
   call s:vim.execute(
     \ cmd,
