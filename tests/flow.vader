@@ -1,18 +1,23 @@
 # vim:set et sw=4 ts=4 tw=79:
+Execute (Setup template path):
+    Save g:jsdoc_templates_path
+    let g:jsdoc_templates_path = ''
+
 Given javascript (typed):
   function foo(foo: string = 'foo', bar: number = 1): string {
     return 'foo'
   }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * foo
+   * foo.
    *
-   * @param {string} foo='foo'
-   * @param {number} bar=1
+   * @param {string} foo
+   * @param {number} bar
    * @returns {string}
    */
   function foo(foo: string = 'foo', bar: number = 1): string {
@@ -25,11 +30,12 @@ Given javascript (union):
   }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * foo
+   * foo.
    *
    * @returns {number | string}
    */
@@ -43,11 +49,12 @@ Given javascript (interface):
   }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * Props
+   * Props.
    */
   type Props = {
     foo?: string
@@ -58,14 +65,15 @@ Given javascript (implements):
   }
 
 Execute:
-  JsDoc
+  :JsDoc
+  :sleep 1
 
 Expect javascript:
   /**
-   * Bar
+   * Bar.
    *
-   * @implements {IFoo}
    * @extends {Foo}
+   * @implements {IFoo}
    */
   class Bar extends Foo implements IFoo {
   }

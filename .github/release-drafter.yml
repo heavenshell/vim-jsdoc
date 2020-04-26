@@ -1,0 +1,23 @@
+name-template: 'v$NEXT_PATCH_VERSION'
+tag-template: '$NEXT_PATCH_VERSION'
+change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+branches:
+  - 'master'
+categories:
+  - title: '🐛 Bug Fixes'
+    labels:
+      - 'bug'
+  - title: '🧰 Maintenance'
+    labels:
+      - 'chore'
+      - 'dependencies'
+      - 'infra'
+
+template: |
+  ## Changes
+
+  $CHANGES
+
+  ## Compare
+
+  https://github.com/heavenshell/vim-jsdoc/compare/$PREVIOUS_TAG...$NEXT_PATCH_VERSION
