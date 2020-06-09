@@ -37,7 +37,7 @@ function! s:create_cmd(style) abort
   if !executable(path)
     redraw
     echohl Error
-    echo '`lehere` not found. Install `lehere`.'
+    echo '`lehre` not found. Install `lehre`.'
     echohl None
     return
   endif
