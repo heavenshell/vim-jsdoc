@@ -14,15 +14,27 @@ If you want use old version checkout [1.0.0](https://github.com/heavenshell/vim-
 
 ## Install
 
-Since version 2.0.0, jsdoc.vim requires [lehre](https://www.npmjs.com/package/lehre).
+### Vim Plug
 
-You can install following command.
+```
+Plug 'heavenshell/vim-jsdoc', { 
+  \ 'for': ['javascript', 'javascript.jsx','typescript'], 
+  \ 'do': 'make install'
+\}
+```
+
+### Manual Installation
+
+Since version 2.0.0, jsdoc.vim requires a local copy [lehre](https://www.npmjs.com/package/lehre) installed to the plugin directory.
+
+You can install lehre with:
 
 ```console
+# cd to <vim-jsdoc path>
 make install
 ```
 
-If you want to update `lehre` hit following commands.
+If you want to update `lehre` use:
 
 ```console
 make clean
@@ -35,7 +47,7 @@ If you want install lehre manually, you can install from npm.
 $ yarn add -D lehre
 ```
 
-Than set installed `/path/to/node_modules/.bin/lehre` path to `g:jsdoc_lehre_path`.
+Then set installed `/path/to/node_modules/.bin/lehre` path to `g:jsdoc_lehre_path`.
 
 ## Usage
 
