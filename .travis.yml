@@ -35,4 +35,5 @@ jobs:
       - chmod u+x ~/tmp/nvim/bin/nvim
 
     script:
+      - cd $HOME/build/heavenshell/vim-jsdoc/tests
       - VIM_EXE=$HOME/tmp/nvim/bin/nvim ./run.sh
