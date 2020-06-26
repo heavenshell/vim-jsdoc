@@ -93,7 +93,12 @@ function! s:exit_callback(msg) abort
   if len(s:results)
     let view = winsaveview()
     silent execute '% delete'
-    call setline(1, s:results)
+    if has('nvim')
+      " the -2 slicing is required to remove an extra new line
+      call setline(1, s:results[0][:-2])
+    else
+      call setline(1, s:results)
+    endif
     call winrestview(view)
   endif
 
