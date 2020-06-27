@@ -8,7 +8,9 @@ jsdoc.vim generates [JSDoc](http://usejsdoc.org/) block comments based on a func
 
 ## Note
 
-Since version 2.0.0 jsdoc.vim is support only **Vim8**.
+jsdoc.vim supports **Vim8**.
+
+Neovim works since v2.1.0, but if something wrong, send me pull requests to fix it.
 
 If you want use old version checkout [1.0.0](https://github.com/heavenshell/vim-jsdoc/releases/tag/1.0.0>).
 
@@ -38,7 +40,7 @@ If you want to update `lehre` use:
 
 ```console
 make clean
-make Install
+make install
 ```
 
 If you want install lehre manually, you can install from npm.
@@ -47,7 +49,7 @@ If you want install lehre manually, you can install from npm.
 $ yarn add -D lehre
 ```
 
-Then set installed `/path/to/node_modules/.bin/lehre` path to `g:jsdoc_lehre_path`.
+Set installed `/path/to/node_modules/.bin/lehre` path to `g:jsdoc_lehre_path`.
 
 ## Usage
 
