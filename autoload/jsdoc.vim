@@ -93,7 +93,12 @@ function! s:exit_callback(msg) abort
   if len(s:results)
     let view = winsaveview()
     silent execute '% delete'
-    call setline(1, s:results)
+    if has('nvim')
+      " the -2 slicing is required to remove an extra new line
+      call setline(1, s:results[0][:-2])
+    else
+      call setline(1, s:results)
+    endif
     call winrestview(view)
   endif
 
@@ -106,20 +111,35 @@ function! s:exit_callback(msg) abort
 endfunction
 
 function! s:vim.execute(cmd, lines, start_lineno, is_method, cb, ex_cb) dict
-  if exists('s:job') && job_status(s:job) != 'stop'
-    call job_stop(s:job)
-  endif
+  if has('nvim')
+    if exists('s:job') && jobwait([s:job], 0)[0] == -1
+      call jobstop(s:job)
+    endif
 
-  let s:job = job_start(a:cmd, {
-    \ 'callback': {_, m -> a:cb(m, a:start_lineno, a:is_method)},
-    \ 'exit_cb': {_, m -> a:ex_cb(m)},
-    \ 'in_mode': 'nl',
-    \ })
+    let s:job = jobstart(a:cmd, {
+          \ 'on_stdout': {_, m -> a:cb(m, a:start_lineno, a:is_method)},
+          \ 'on_exit': {_, m -> a:ex_cb(m)},
+          \ 'stdout_buffered': 1,
+          \ })
 
-  let channel = job_getchannel(s:job)
-  if ch_status(channel) ==# 'open'
-    call ch_sendraw(channel, a:lines)
-    call ch_close_in(channel)
+    call chansend(s:job, a:lines)
+    call chanclose(s:job, 'stdin')
+  elseif v:version >= 800 && !has('nvim')
+    if exists('s:job') && job_status(s:job) != 'dead'
+      call job_stop(s:job)
+    endif
+
+    let s:job = job_start(a:cmd, {
+          \ 'callback': {_, m -> a:cb(m, a:start_lineno, a:is_method)},
+          \ 'exit_cb': {_, m -> a:ex_cb(m)},
+          \ 'in_mode': 'nl',
+          \ })
+
+    let channel = job_getchannel(s:job)
+    if ch_status(channel) ==# 'open'
+      call ch_sendraw(channel, a:lines)
+      call ch_close_in(channel)
+    endif
   endif
 endfunction
 

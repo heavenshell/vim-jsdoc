@@ -27,3 +27,17 @@ jobs:
     script:
       - cd $HOME/build/heavenshell/vim-jsdoc/tests
       - VIM_EXE=$HOME/bin/vim/bin/vim ./run.sh
+      
+  - env: ENV="Neovim"
+    install:
+      - mkdir -p ~/tmp/nvim/bin
+      - curl -L https://github.com/neovim/neovim/releases/download/v0.4.3/nvim.appimage -o ~/tmp/nvim/bin/nvim
+      - chmod u+x ~/tmp/nvim/bin/nvim
+      
+    before_script:
+      - cd $HOME/build/heavenshell/vim-jsdoc
+      - make install
+
+    script:
+      - cd $HOME/build/heavenshell/vim-jsdoc/tests
+      - VIM_EXE=$HOME/tmp/nvim/bin/nvim ./run.sh
