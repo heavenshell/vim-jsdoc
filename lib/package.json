@@ -1,9 +1,8 @@
 {
   "name": "jsdoc.vim",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "main": "index.js",
   "author": "Shinya Ohyanagi",
-  "license": "MIT",
   "private": true,
   "devDependencies": {
     "lehre": "latest"
