@@ -1,7 +1,7 @@
 " File: jsdoc.vim
 " Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 " Author: Shinya Ohyanagi <sohyanagi@gmail.com>
-" Version: 2.0.0
+" Version: 2.1.0
 " WebPage: http://github.com/heavenshell/vim-jsdoc/
 " Description: Generate JSDoc to your JavaScript, TypeScript file.
 " License: BSD, see LICENSE for more details.
