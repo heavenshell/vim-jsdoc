@@ -1,6 +1,6 @@
 # jsdoc.vim
 
-[![Build Status](https://travis-ci.org/heavenshell/vim-jsdoc.svg?branch=master)](https://travis-ci.org/heavenshell/vim-jsdoc)
+![build](https://github.com/heavenshell/vim-jsdoc/workflows/build/badge.svg)
 
 jsdoc.vim generates [JSDoc](http://usejsdoc.org/) block comments based on a function signature.
 
