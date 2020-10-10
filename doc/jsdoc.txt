@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JSDoc to your JavaScript code.
 
-Version: 2.1.0
+Version: 2.1.1
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Author: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -116,6 +116,11 @@ g:jsdoc_lehre_path					*g:jsdoc_lehre_path*
 >
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2020-10-10
+- Fix async bug
+  See https://github.com/heavenshell/vim-jsdoc/issues/99 details.
+  (thx @holtc)
+
 2020-06-27
 - Add Neovim support
   See https://github.com/heavenshell/vim-jsdoc/pull/92 details.
