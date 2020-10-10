@@ -16,6 +16,7 @@ let g:jsdoc_lehre_path = get(
   \ )
 
 let s:is_method_regex = '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$'
+let s:is_declarelation = '^.\{-}=\s*\(\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*)\|(\s*\([^)]*\)\s*\).*$'
 let s:registered_callback = ''
 let s:results = []
 let s:vim = {}
@@ -73,7 +74,7 @@ function! s:callback(msg, start_lineno, is_method) abort
   let i = 0
   let length = len(docs)
   for d in docs
-    " If generate methods's signature, jsdoc.vim would add dummy Class 
+    " If generate methods's signature, jsdoc.vim would add dummy Class
     " signature. So ignore it.
     if i == 0 && a:is_method
       call s:insert_doc(d, a:start_lineno)
@@ -169,7 +170,7 @@ function! jsdoc#insert(...) abort
   if is_not_range
     let line = getline('.')
     let is_method = line =~ s:is_method_regex && line !~ 'function(.*)\|function [A-z0-9_]\+(.*)\|function [A-z0-9_]\+\s\+(.*)'
-    if is_method
+    if is_method && line !~ s:is_declarelation
       let lines = printf("%s\n%s", 'class ForJsDocDummyClass {', lines)
     endif
   endif
