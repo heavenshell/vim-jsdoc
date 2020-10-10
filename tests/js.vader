@@ -172,6 +172,24 @@ Expect javascript:
    */
   function foo(arg, arg1 = 'foo', arg2 = 100) {}
 
+
+Given javascript (async):
+  const foo = async foo(arg, arg1, arg2) => {}
+
+Execute:
+  :JsDoc
+  :sleep 1
+
+Expect javascript:
+  /**
+   * foo.
+   *
+   * @param {} arg
+   * @param {} arg1
+   * @param {} arg2
+   */
+  const foo = async foo(arg, arg1, arg2) => {}
+
 Given javascript (export default function):
   export default function (arg1, arg2) {}
 
