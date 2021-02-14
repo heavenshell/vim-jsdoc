@@ -25,6 +25,26 @@ Plug 'heavenshell/vim-jsdoc', {
 \}
 ```
 
+<details><summary>PlugUpdate error</summary>
+<p>
+  If you got `yarn.lock` related error,
+
+  ```console
+  error: Your local changes to the following files would be overwritten by merge:
+      lib/yarn.lock
+  ```
+
+  Run following command
+
+  ```
+  cd /path/to/plugged/vim-jsdoc
+  git checkout -- yarn.lock
+  ```
+
+  and re-run `PlugUpdate`
+</p>
+</details>
+
 ### Manual Installation
 
 Since version 2.0.0, jsdoc.vim requires a local copy [lehre](https://www.npmjs.com/package/lehre) installed to the plugin directory.
