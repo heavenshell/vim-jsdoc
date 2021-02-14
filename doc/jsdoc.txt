@@ -116,6 +116,11 @@ g:jsdoc_lehre_path					*g:jsdoc_lehre_path*
 >
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2021-02-15
+- Update README
+  See https://github.com/heavenshell/vim-jsdoc/issues/103 details.
+  (thx @boblannon)
+
 2020-10-10
 - Fix async bug
   See https://github.com/heavenshell/vim-jsdoc/issues/99 details.
