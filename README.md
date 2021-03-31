@@ -96,7 +96,7 @@ You can choose formatter from [JsDoc](https://jsdoc.app/), [ESDoc](https://esdoc
 
 If you want to create your own template, see [example template](https://github.com/heavenshell/ts-lehre/tree/master/examples). 
 
-## Intaractive input
+## Interactive input
 
 Since ver 2.0.0 input `Allow prompt for interactive input` is deprecated.
 
