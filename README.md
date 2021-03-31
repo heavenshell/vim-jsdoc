@@ -100,7 +100,7 @@ If you want to create your own template, see [example template](https://github.c
 
 Since ver 2.0.0 input `Allow prompt for interactive input` is deprecated.
 
-If you want input Intaractively, use snippet plugin.
+If you want input Interactively, use snippet plugin.
 
 See [snippet example template](./examples/snippet_template.js).
 
