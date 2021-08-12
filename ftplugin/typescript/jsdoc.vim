@@ -14,8 +14,8 @@ if !has('nvim') && (!has('channel') || !has('job'))
   finish
 endif
 
-command! -nargs=0 -range=0 -complete=customlist,jsdoc#insert JsDoc call jsdoc#insert(<q-args>, <count>, <line1>, <line2>)
-command! -nargs=0 -complete=customlist,jsdoc#format JsDocFormat call jsdoc#format()
+command! -range=0 JsDoc call jsdoc#insert(<q-args>, <count>, <line1>, <line2>)
+command! JsDocFormat call jsdoc#format()
 nnoremap <silent> <buffer> <Plug>(jsdoc) :call jsdoc#insert()<CR>
 
 let &cpo = s:save_cpo
