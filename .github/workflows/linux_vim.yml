@@ -17,9 +17,9 @@ jobs:
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
-          python-version: '12.x'
+          node-version: '12.x'
       - name: Download vim
         shell: bash
         run: |
