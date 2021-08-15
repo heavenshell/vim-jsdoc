@@ -14,13 +14,17 @@ Neovim works since v2.1.0, but if something wrong, send me pull requests to fix 
 
 If you want use old version checkout [1.0.0](https://github.com/heavenshell/vim-jsdoc/releases/tag/1.0.0>).
 
+## Requirements
+
+Node v12.x or above.
+
 ## Install
 
 ### Vim Plug
 
 ```
-Plug 'heavenshell/vim-jsdoc', { 
-  \ 'for': ['javascript', 'javascript.jsx','typescript'], 
+Plug 'heavenshell/vim-jsdoc', {
+  \ 'for': ['javascript', 'javascript.jsx','typescript'],
   \ 'do': 'make install'
 \}
 ```
@@ -94,7 +98,7 @@ Option                     |Default       |Description
 
 You can choose formatter from [JsDoc](https://jsdoc.app/), [ESDoc](https://esdoc.org/), [TSDoc](https://github.com/microsoft/tsdoc).
 
-If you want to create your own template, see [example template](https://github.com/heavenshell/ts-lehre/tree/master/examples). 
+If you want to create your own template, see [example template](https://github.com/heavenshell/ts-lehre/tree/master/examples).
 
 ## Interactive input
 
@@ -107,21 +111,25 @@ See [snippet example template](./examples/snippet_template.js).
 ## Keymap
 
 You can add following setting to .vimrc
+
 ```vim
 nmap <silent> <C-l> <Plug>(jsdoc)
 ```
 
 Alternatively, you could add the following setting to your .vimrc to search for the last `function` declaration
 and puts your jsdoc above it:
+
 ```vim
 nmap <silent> <C-l> ?function<cr>:noh<cr><Plug>(jsdoc)
 ```
 
 ## Thanks
+
 - This plugin based on https://gist.github.com/3903772#file-jsdoc-vim written by [NAKAMURA, Hisashi](https://gist.github.com/sunvisor)
 
 - The idea of npm packages installation is from [vim-lsp-settings](https://github.com/mattn/vim-lsp-settings).
 Highly applicate [@mattn](https://github.com/mattn/) and all vim-lsp-settings contributors.
 
 ## LICENSE
+
 New BSD LICENSE
