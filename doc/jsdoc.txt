@@ -1,6 +1,6 @@
 *jsdoc.txt*	Generate JSDoc to your JavaScript code.
 
-Version: 2.1.3
+Version: 2.1.4
 Author: NAKAMURA, Hisashi <https://github.com/sunvisor>
 Author: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-jsdoc/
@@ -116,6 +116,13 @@ g:jsdoc_lehre_path					*g:jsdoc_lehre_path*
 >
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+
+2021-08-12
+- Update lehre v1.5.0
+  See https://github.com/heavenshell/ts-lehre/releases/tag/v1.5.0 details.
+
+- Fix document
+
 2021-08-12
 - Fix E1208: -complete used without allowing arguments
   See https://github.com/heavenshell/vim-jsdoc/issues/110 details.
