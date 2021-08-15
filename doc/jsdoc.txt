@@ -31,7 +31,7 @@ Install the distributed files into Vim runtime directory which is usually
 If you install pathogen that provided from Tim Pope, you should extract the
 file into 'bundle' directory.
 
-Since ver 2.0.0, jsdoc.vim requires 'lehre'.
+Since ver 2.0.0, jsdoc.vim requires 'lehre' and Node v12.x or above.
 Install 'lehre' from npm or hit following command.
 >
   make install
