@@ -12,7 +12,7 @@ Execute:
   :JsDoc
   :sleep 1
 
-Expect javascript:
+Expect typescript:
   /**
    * foo.
    *
@@ -33,7 +33,7 @@ Execute:
   :JsDoc
   :sleep 1
 
-Expect javascript:
+Expect typescript:
   /**
    * foo.
    *
@@ -52,7 +52,7 @@ Execute:
   :JsDoc
   :sleep 1
 
-Expect javascript:
+Expect typescript:
   /**
    * IFoo.
    */
@@ -68,7 +68,7 @@ Execute:
   :JsDoc
   :sleep 1
 
-Expect javascript:
+Expect typescript:
   /**
    * Bar.
    *
@@ -90,7 +90,7 @@ Execute:
   :JsDoc
   :sleep 1
 
-Expect javascript:
+Expect typescript:
   class Bar extends Foo implements IFoo {
     /**
      * constructor.
@@ -114,7 +114,7 @@ Execute:
   :JsDoc
   :sleep 1
 
-Expect javascript:
+Expect typescript:
   class Bar extends Foo implements IFoo {
     /**
      * foo.
@@ -125,4 +125,25 @@ Expect javascript:
      */
     private foo(arg1: string, arg2: number = 0): void {
     }
+  }
+
+Given typescript (typescriptreact):
+  function foo(foo: string = 'foo', bar: number = 1): string {
+    return 'foo'
+  }
+
+Execute:
+  :JsDoc
+  :sleep 1
+
+Expect typescript:
+  /**
+   * foo.
+   *
+   * @param {string} foo
+   * @param {number} bar
+   * @returns {string}
+   */
+  function foo(foo: string = 'foo', bar: number = 1): string {
+    return 'foo'
   }

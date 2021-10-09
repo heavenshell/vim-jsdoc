@@ -321,3 +321,16 @@ Expect javascript:
       console.log('foo')
     }
   }
+
+Given javascriptreact (named function with no arg):
+  function foo() { }
+
+Execute:
+  JsDoc
+  :sleep 1
+
+Expect javascript:
+  /**
+   * foo.
+   */
+  function foo() { }
