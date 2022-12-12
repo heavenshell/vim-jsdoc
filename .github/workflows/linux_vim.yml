@@ -16,10 +16,16 @@ jobs:
             glibc_version: 2.15
     runs-on: ${{matrix.os}}
     steps:
+      - name: Initialization
+        run: |
+          sudo apt-get update
+          # libfuse2 and LD_PRELOAD are needed for appimage.
+          sudo apt-get -y install libfuse2
+          echo "LD_PRELOAD=/lib/x86_64-linux-gnu/libgmodule-2.0.so" >> $GITHUB_ENV
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '12.x'
+          node-version: '16.x'
       - name: Download vim
         shell: bash
         run: |
