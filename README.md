@@ -12,7 +12,7 @@ jsdoc.vim supports **Vim8**.
 
 Neovim works since v2.1.0, but if something wrong, send me pull requests to fix it.
 
-If you want use old version checkout [1.0.0](https://github.com/heavenshell/vim-jsdoc/releases/tag/1.0.0>).
+If you want use old version checkout [1.0.0](https://github.com/heavenshell/vim-jsdoc/releases/tag/1.0.0).
 
 ## Requirements
 
