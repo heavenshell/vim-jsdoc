@@ -116,6 +116,26 @@ g:jsdoc_lehre_path					*g:jsdoc_lehre_path*
 >
 ==============================================================================
 CHANGELOG					*jsdoc-changelog*
+2022-12-21
+- Fix dead link for v1.0.0 users
+  See https://github.com/heavenshell/vim-jsdoc/pull/122 details
+  (thx @raimon49)
+
+- Fix adding yarn silent
+  See https://github.com/heavenshell/vim-jsdoc/pull/120 details.
+  (thx @carlosala)
+
+- Do not dirty repo when installing via npm
+  See https://github.com/heavenshell/vim-jsdoc/pull/119 details.
+  (thx @perrin4869)
+
+2021-10-09
+- Add typescriptreact and javascriptreact to ftplugin
+  See https://github.com/heavenshell/vim-jsdoc/issues/116 details.
+
+2021-08-15
+- Update document
+  See https://github.com/heavenshell/vim-jsdoc/pull/114 details.
 
 2021-10-09
 - Fix typescriptreact/javascriptreact not an editor command
