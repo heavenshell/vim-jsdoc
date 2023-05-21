@@ -10,17 +10,17 @@ set cpo&vim
 let g:jsdoc_templates_path = get(g:, 'jsdoc_templates_path', '')
 let g:jsdoc_formatter = get(g:, 'jsdoc_formatter', 'jsdoc')
 if has("win64") || has("win32") || has("win16")
-	let g:jsdoc_lehre_path = get(
-	  \ g:,
-	  \ 'jsdoc_lehre_path',
-	  \ printf('%s/lib/node_modules/.bin/lehre.cmd', expand('<sfile>:p:h:h'))
-	  \ )
+  let g:jsdoc_lehre_path = get(
+    \ g:,
+    \ 'jsdoc_lehre_path',
+    \ printf('%s/lib/node_modules/.bin/lehre.cmd', expand('<sfile>:p:h:h'))
+    \ )
 else
-	let g:jsdoc_lehre_path = get(
-	  \ g:,
-	  \ 'jsdoc_lehre_path',
-	  \ printf('%s/lib/lehre', expand('<sfile>:p:h:h'))
-	  \ )
+  let g:jsdoc_lehre_path = get(
+    \ g:,
+    \ 'jsdoc_lehre_path',
+    \ printf('%s/lib/lehre', expand('<sfile>:p:h:h'))
+    \ )
 endif
 
 let s:is_method_regex = '^.\{-}\s*\([a-zA-Z_$][a-zA-Z0-9_$]*\)\s*(\s*\([^)]*\)\s*).*$'
