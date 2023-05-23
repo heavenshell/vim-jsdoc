@@ -67,13 +67,22 @@ make clean
 make install
 ```
 
-If you want install lehre manually, you can install from npm.
+If you want to install lehre manually, you can install from npm.
 
 ```console
 $ yarn add -D lehre
 ```
 
 Set installed `/path/to/node_modules/.bin/lehre` path to `g:jsdoc_lehre_path`.
+
+#### Installing on Windows
+
+```console
+# cd to <vim-jsdoc path>/lib
+npm install
+```
+
+If you want to set the path of [lehre](https://www.npmjs.com/package/lehre) manually on Windows, you should use the path with the file extension  `.cmd`, such as `/path/to/node_modules/.bin/lehre.cmd`.
 
 ## Usage
 
